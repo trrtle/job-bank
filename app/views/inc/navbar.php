@@ -31,6 +31,9 @@
             <ul class="navbar-nav ml-auto">
                 <?php if(isset($_SESSION["id"]) && isset($_SESSION['username'])): ?>
                     <li class="nav-item">
+                        <a class="nav-link" href="<?php echo URLROOT . "users/profile";?>">Profiel</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="<?php echo URLROOT . "users/logout";?>">logout</a>
                     </li>
                 <?php else: ?>

@@ -163,26 +163,39 @@ class Users extends Controller {
 
     }
 
+    // user profile
+    public function profile($username = ''){
+
+        // check if user is logged in
+        if(!isset($_SESSION["id"]) && !isset($_SESSION['email'])){
+            redirect("/users/login");
+        }
+
+        if(empty($username)){
+            $username = $_SESSION['username'];
+        }
+
+        $user = $this->userModel->findUserByUsername($username);
+
+        $data = [
+            'user'=>$user
+        ];
+
+        $this->view("/Users/profile", $data);
+    }
+
     public function createUserSession($user){
         $_SESSION['id'] = $user->id;
         $_SESSION['email'] = $user->email;
         $_SESSION['username'] = $user->username;
-        redirect("pages/index");
+        redirect("/Pages/index");
     }
 
     public function logout(){
         unset($_SESSION['id']);
         unset($_SESSION['email']);
         unset($_SESSION['username']);
-        redirect("users/login");
+        redirect("/Users/login");
     }
 
-    public function isLoggedIn(){
-        if(isset($_SESSION['id']) && isset($_SESSION['email'])){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
 }

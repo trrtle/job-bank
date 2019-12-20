@@ -101,7 +101,7 @@ class User{
         $row = $this->db->resultRow();
 
         if($this->db->rowCount() > 0){
-            return true;
+            return $row;
         }else{
             return false;
         }

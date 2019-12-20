@@ -9,15 +9,15 @@
  */
 
 // Db params
-define('DB_HOST', "YOUR_DB_HOST");
-define('DB_USER', '_YOUR_USER_');
-define('DB_SECRET', '_YOUR_PASSWORD_');
-define('DB_NAME', '_YOUR_DB_NAME_');
+define('DB_HOST', "database");
+define('DB_USER', 'jb_user');
+define('DB_SECRET', 'K7K3fFy(Z1z!^t@T!UGX3QNI');
+define('DB_NAME', 'jb_db');
 
 // URL root
-define("URLROOT", "__YOUR_URL_)");
+define("URLROOT", "http://localhost:58030/job-bank/");
 // Site name
-define("SITENAME", "_YOUR_SITE_NAME_");
+define("SITENAME", "Power Jobs");
 // app root
 define('APPROOT', dirname(__DIR__));
 // app version
