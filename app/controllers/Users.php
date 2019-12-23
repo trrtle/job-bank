@@ -184,6 +184,26 @@ class Users extends Controller {
         $this->view("/Users/profile", $data);
     }
 
+    // Edit user profile
+    public function edit(){
+
+        // check if user is logged in
+        if(!isset($_SESSION["id"]) && !isset($_SESSION['email'])){
+            redirect("/users/login");
+        }
+
+        // get logged-in user from database
+        $username = $_SESSION['username'];
+
+        $user = $this->userModel->findUserByUsername($username);
+
+        $data = [
+            'user'=>$user
+        ];
+
+        $this->view("/Users/edit", $data);
+    }
+
     public function createUserSession($user){
         $_SESSION['id'] = $user->id;
         $_SESSION['email'] = $user->email;

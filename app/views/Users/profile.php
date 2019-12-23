@@ -15,8 +15,15 @@ $user = $data['user'];
 ?>
 
 <div class="row text-center mb-5">
-    <div class="col col-12">
+    <div class="col col-11">
        <h1>Profiel</h1>
+    </div>
+    <div class="col col-1">
+        <a href="<?php echo URLROOT ?>/Users/edit">
+            <button type="button" class="btn btn-primary">
+                <i class="fa fa-pencil-square-o edit-icon-profile"></i>
+            </button>
+        </a>
     </div>
 
 </div>

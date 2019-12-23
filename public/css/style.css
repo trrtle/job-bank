@@ -4,5 +4,8 @@ body{
 .avatar{
    height: 300px;
     width: 300px;
+}
 
+.edit-icon-profile{
+    font-size: 20px;
 }
