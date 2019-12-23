@@ -195,17 +195,45 @@ class Users extends Controller {
         $this->view("/Users/profile", $data);
     }
 
+
     // Edit user profile
     public function edit(){
 
         // check if user is logged in
-        if(!isset($_SESSION["id"]) && !isset($_SESSION['email'])){
+        if(!isset($_SESSION["id"]) && !isset($_SESSION['username'])){
             redirect("/users/login");
         }
+
+        // check for POST
+        if($_SERVER["REQUEST_METHOD"] == 'POST') {
+
+            // Sanitize POST data. 1. call htmlspecialchars() on entire array. 2. set every value as a string
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            // process form
+            $user = [
+                'firstname' => trim($_POST['firstname']),
+                'lastname' => $_POST['lastname'],
+                'city' => $_POST['city'],
+                'image' => $_POST['image'],
+                'age' => $_POST['age'],
+                'gender' => $_POST['gender']
+            ];
+
+            if($this->userModel->updateProfile($user)){
+                $_SESSION["flash"] = new Flash("Profiel gewijzigd!");
+                redirect("/Users/profile");
+            }else{
+                die('something went wrong');
+            }
+        }
+
 
         // get logged-in user from database
         $username = $_SESSION['username'];
 
+        // get row from the user
         $user = $this->userModel->findUserByUsername($username);
 
         $data = [

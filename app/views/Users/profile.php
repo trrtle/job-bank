@@ -13,15 +13,17 @@ require APPROOT . "/views/inc/header.php";
 /** @var array $data */
 $user = $data['user'];
 ?>
-
     <?php if($_SESSION['id'] == $user->id && $_SESSION['username'] == $user->username): ?>
-    <div class="col offset-11">
-        <a href="<?php echo URLROOT ?>/Users/edit">
-            <button type="button" class="btn btn-primary">
-                <i class="fa fa-pencil-square-o edit-icon-profile"></i> Wijzig
-            </button>
-        </a>
-    </div>
+        <?php if(!empty($_SESSION['flash'])) {$_SESSION['flash']->show();}?>
+        <div class="row">
+            <div class="col offset-10">
+                <a href="<?php echo URLROOT ?>/Users/edit">
+                    <button type="button" class="btn btn-primary">
+                        <i class="fa fa-pencil-square-o edit-icon-profile"></i> Wijzig
+                    </button>
+                </a>
+            </div>
+        </div>
     <?php endif ?>
 
 </div>

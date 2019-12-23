@@ -161,6 +161,31 @@ class User{
         }
     }
 
+    public function updateProfile($user){
+        $sql = "UPDATE users SET 
+                    firstname = :firstname, 
+                    lastname = :lastname, 
+                    city = :city, 
+                    image = :image, 
+                    age = :age, 
+                    gender = :gender 
+                    WHERE users.id = :id";
+
+        $this->db->query($sql);
+        $this->db->bind(":firstname",$user['firstname']);
+        $this->db->bind(":lastname",$user['lastname']);
+        $this->db->bind(":city",$user['city']);
+        $this->db->bind(":image",$user['image']);
+        $this->db->bind(":age",$user['age']);
+        $this->db->bind(":gender",$user['gender']);
+        $this->db->bind(":id",$_SESSION['id']);
+
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 
 }

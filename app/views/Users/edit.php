@@ -24,31 +24,35 @@ require APPROOT . "/views/inc/header.php"
             <h1>Wijzig je gegevens</h1>
         </div>
         <div class="card-body">
-            <form>
+        <form action="<?php echo URLROOT?>users/edit" method="post">
         <div class="row mb-3">
             <div class="col-12 col-md-6">
                 <label for="firstname">Voornaam</label>
-                <input type="text" class="form-control" name="firstname" placeholder="<?php echo $data['user']->firstname?>">
+                <input type="text" class="form-control" name="firstname" value="<?php echo $data['user']->firstname?>">
             </div>
             <div class="col-12 col-md-6">
                 <label for="lastname">Achternaam</label>
-                <input type="text" class="form-control" name="lastname" placeholder="<?php echo $data['user']->lastname?>">
+                <input type="text" class="form-control" name="lastname" value="<?php echo $data['user']->lastname?>">
             </div>
         </div>
         <div class="row mb-3">
             <div class="col-12 col-md-6">
                 <label for="city">Woonplaats</label>
-                <input type="text" class="form-control" name="city" placeholder="<?php echo $data['user']->city?>">
+                <input type="text" class="form-control" name="city" value="<?php echo $data['user']->city?>">
             </div>
             <div class="col-6 col-md-3">
                 <label for="age">Leeftijd</label>
-                <input type="number" class="form-control" name="age" placeholder="<?php echo $data['user']->age?>">
+                <input type="number" class="form-control" name="age" value="<?php echo $data['user']->age?>">
             </div>
             <div class="col-6 col-md-3">
                 <label for="gender">Gender</label>
-                <input type="text" class="form-control" name="gender" placeholder="<?php echo $data['user']->gender?>">
+                <input type="text" class="form-control" name="gender" value="<?php echo $data['user']->gender?>">
             </div>
         </div>
+        <button type="submit" class="btn btn-primary">
+            <i class="fa fa-pencil-square-o edit-icon-profile"></i>
+            Wijzig
+        </button>
     </form>
     </div>
     </div>
