@@ -14,20 +14,18 @@ require APPROOT . "/views/inc/header.php";
 $user = $data['user'];
 ?>
 
-<div class="row text-center mb-5">
-    <div class="col col-11">
-       <h1>Profiel</h1>
-    </div>
-    <div class="col col-1">
+    <?php if($_SESSION['id'] == $user->id && $_SESSION['username'] == $user->username): ?>
+    <div class="col offset-11">
         <a href="<?php echo URLROOT ?>/Users/edit">
             <button type="button" class="btn btn-primary">
-                <i class="fa fa-pencil-square-o edit-icon-profile"></i>
+                <i class="fa fa-pencil-square-o edit-icon-profile"></i> Wijzig
             </button>
         </a>
     </div>
+    <?php endif ?>
 
 </div>
-<div class="row text-center">
+<div class="row text-center mt-5">
     <div class="col-6">
         <img src="<?php echo URLROOT ?>public/img/stewie.jpg" class="img-thumbnail avatar">
     </div>
