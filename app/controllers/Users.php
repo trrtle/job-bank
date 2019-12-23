@@ -19,6 +19,16 @@ class Users extends Controller {
         $this->userModel = $this->model("User");
     }
 
+    // default page
+    public function index(){
+
+        $data = [
+            "title"=>"TurtleMVC"
+        ];
+        $this->view('/Pages/index', $data);
+    }
+
+    // user registration
     public function register(){
         // check for POST
         if($_SERVER["REQUEST_METHOD"] == 'POST'){
@@ -102,6 +112,7 @@ class Users extends Controller {
 
     }
 
+    // user login
     public function login(){
         // check for POST
         if($_SERVER["REQUEST_METHOD"] == 'POST'){

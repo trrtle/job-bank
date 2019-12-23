@@ -13,6 +13,30 @@ require APPROOT . "/views/inc/header.php"
 /** @var array $data */
 ?>
 
-EDIT
+<!--<div class="row mb-3">-->
+<!--    <div class="card-header">-->
+<!--        <h1>Wijzig je gegevens</h1>-->
+<!--    </div>-->
+<!--</div>-->
+
+    <div class="card bg-white">
+        <div class="card-header">
+            <h1>Wijzig je gegevens</h1>
+        </div>
+        <div class="card-body">
+            <form>
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <label for="firstname">Firstname</label>
+                <input type="text" class="form-control" name="firstname" placeholder="<?php echo $data['user']->firstname?>">
+            </div>
+            <div class="col-12 col-md-6">
+                <label for="lastname">lastname</label>
+                <input type="text" class="form-control" name="lastname" placeholder="<?php echo $data['user']->lastname?>">
+            </div>
+        </div>
+    </form>
+    </div>
+    </div>
 
 <?php require APPROOT . "/views/inc/footer.php"?>
