@@ -12,19 +12,14 @@
 require APPROOT . "/views/inc/header.php"
 /** @var array $data */
 ?>
-
-<!--<div class="row mb-3">-->
-<!--    <div class="card-header">-->
-<!--        <h1>Wijzig je gegevens</h1>-->
-<!--    </div>-->
-<!--</div>-->
-
+<?php if(!empty($_SESSION['flash'])) {$_SESSION['flash']->show();}?>
     <div class="card bg-white">
         <div class="card-header">
-            <h1>Wijzig je gegevens</h1>
+            <h1>Wijzig je profiel</h1>
         </div>
         <div class="card-body">
-        <form action="<?php echo URLROOT?>users/edit" method="post">
+        <form class="form-group" action="<?php echo URLROOT?>users/edit" method="post">
+            <h4>Gegevens</h4>
         <div class="row mb-3">
             <div class="col-12 col-md-6">
                 <label for="firstname">Voornaam</label>
@@ -53,6 +48,33 @@ require APPROOT . "/views/inc/header.php"
             <i class="fa fa-pencil-square-o edit-icon-profile"></i>
             Wijzig
         </button>
+    </form>
+
+    <hr>
+
+    <form class="form-group" action="<?php echo URLROOT?>users/uploadImage" method="POST" enctype="multipart/form-data">
+        <div class="row mb-3">
+            <div class="col">
+                <label for="image"><h4>Afbeelding</h4></label>
+                <input type="file" class="form-control-file" name="image">
+            </div>
+        </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-cloud-upload"></i>
+                        Upload
+                    </button>
+                </div>
+                <div class="col offset-sm-4 offset-md-6 offset-lg-8">
+                    <a href="<?php echo URLROOT?>users/profile">
+                        <button type="button" class="btn btn-danger">
+                            <i class="fa fa-undo"></i>
+                            Annuleer
+                        </button>
+                    </a>
+                </div>
+            </div>
     </form>
     </div>
     </div>

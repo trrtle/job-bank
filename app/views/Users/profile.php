@@ -30,7 +30,7 @@ $user = $data['user'];
 <div class="card card-body bg-white mt-3">
 <div class="row text-center ">
     <div class="col-6">
-        <img src="<?php echo URLROOT ?>public/img/stewie.jpg" class="img-thumbnail avatar">
+        <img src="<?php echo URLROOT . "public/img/" . $user->username . ".avatar"?>" class="img-thumbnail avatar">
     </div>
     <div class="col-6">
         <div class="card">
