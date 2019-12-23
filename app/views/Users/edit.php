@@ -25,14 +25,28 @@ require APPROOT . "/views/inc/header.php"
         </div>
         <div class="card-body">
             <form>
-        <div class="row">
+        <div class="row mb-3">
             <div class="col-12 col-md-6">
-                <label for="firstname">Firstname</label>
+                <label for="firstname">Voornaam</label>
                 <input type="text" class="form-control" name="firstname" placeholder="<?php echo $data['user']->firstname?>">
             </div>
             <div class="col-12 col-md-6">
-                <label for="lastname">lastname</label>
+                <label for="lastname">Achternaam</label>
                 <input type="text" class="form-control" name="lastname" placeholder="<?php echo $data['user']->lastname?>">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-12 col-md-6">
+                <label for="city">Woonplaats</label>
+                <input type="text" class="form-control" name="city" placeholder="<?php echo $data['user']->city?>">
+            </div>
+            <div class="col-6 col-md-3">
+                <label for="age">Leeftijd</label>
+                <input type="number" class="form-control" name="age" placeholder="<?php echo $data['user']->age?>">
+            </div>
+            <div class="col-6 col-md-3">
+                <label for="gender">Gender</label>
+                <input type="text" class="form-control" name="gender" placeholder="<?php echo $data['user']->gender?>">
             </div>
         </div>
     </form>
