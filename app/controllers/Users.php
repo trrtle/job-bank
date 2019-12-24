@@ -318,7 +318,13 @@ class Users extends Controller {
                 }
 
                 // update email
-
+                if($this->userModel->updateEmail($data['email'])){
+                    $_SESSION['flash'] = new Flash("Email adres is aangepast!");
+                    redirect("Users/settings");
+                }else{
+                    $_SESSION['flash'] = new Flash("Er is iets fout gegaan", "alert alert-danger");
+                    redirect("Users/settings");
+                }
 
             }  //if user updates password
             elseif(!empty($_POST['secret']) && !empty($_POST['secret_confirm'])){
@@ -345,11 +351,6 @@ class Users extends Controller {
                 // check if errors are empty
                 if(empty($data['secret_err']) && empty($data['secret_confirm_err'])){
 
-                    // get logged-in user from database
-                    $id = $_SESSION['id'];
-
-                    // get row from the user
-                    $user = $this->userModel->findUserById($id);
 
                     // update secret
                     if($this->userModel->updateSecret($data['secret'])){
@@ -363,12 +364,14 @@ class Users extends Controller {
                 }
 
             }
+
             // if input is empty
             elseif(empty($_POST['secret']) || empty($_POST['secret_confirm']) || empty($_POST['email'])){
-                $_SESSION['flash'] = new Flash("Empty fields", "alert alert-danger");
+                $_SESSION['flash'] = new Flash("Lege velden", "alert alert-danger");
                 redirect("Users/settings");
             }
 
+        // when request method is not POST
         }else{
             // get logged-in user from database
             $id = $_SESSION['id'];
