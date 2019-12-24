@@ -25,12 +25,12 @@ $user = $data['user'];
             </div>
         </div>
     <?php endif ?>
-
+<!--echo URLROOT . "public/img/" . $user->username . ".avatar"-->
 </div>
 <div class="card card-body bg-white mt-3">
 <div class="row text-center ">
     <div class="col-6">
-        <img src="<?php echo URLROOT . "public/img/" . $user->username . ".avatar"?>" class="img-thumbnail avatar">
+        <img src="<?php echo URLROOT  . $user->image?>" class="img-thumbnail avatar">
     </div>
     <div class="col-6">
         <div class="card">

@@ -165,8 +165,7 @@ class User{
         $sql = "UPDATE users SET 
                     firstname = :firstname, 
                     lastname = :lastname, 
-                    city = :city, 
-                    image = :image, 
+                    city = :city,
                     age = :age, 
                     gender = :gender 
                     WHERE users.id = :id";
@@ -186,6 +185,21 @@ class User{
             return false;
         }
     }
+
+    // upload image path
+    public function uploadImagePath($path){
+        $sql = "UPDATE users SET image = :image WHERE users.id = :id";
+        $this->db->query($sql);
+        $this->db->bind(':image', $path);
+        $this->db->bind(':id', $_SESSION['id']);
+
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 
 
 }

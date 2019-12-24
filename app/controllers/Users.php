@@ -250,30 +250,40 @@ class Users extends Controller {
             $image = getimagesize($_FILES["image"]["tmp_name"]);
 
             if($image){
+
                 // check file size is les then 5mb
                 if ($_FILES["image"]["size"] < 5000000) {
+
                     // set target
                     $target_dir = "img/";
                     $target_file = $target_dir . $_SESSION['username'] .".avatar";
+
                     // move the uploaded file to target
                     if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                        $this->userModel->uploadImagePath($target_file);
                         redirect("Users/profile");
-                        echo "The file ". basename( $_FILES["image"]["name"]). " has been uploaded.";
+
                     } else {
                         die("Sorry, there was an error uploading your file.");
                     }
+
                 }else{
                     $_SESSION['flash'] = new Flash("Image is to big", "alert alert-danger");
                     redirect("Users/edit");
                 }
+
             }else{
                 $_SESSION['flash'] = new Flash("Is not an image!", "alert alert-danger");
                 redirect("Users/edit");
             }
+
         }else{
            redirect("Users/edit");
         }
+    }
 
+    // user account settings
+    public function settings(){
 
     }
 
