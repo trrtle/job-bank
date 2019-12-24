@@ -36,6 +36,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo URLROOT . "users/logout";?>">logout</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo URLROOT . "users/settings";?>">
+                            <i class="fa fa-cog"></i>
+                        </a>
+                    </li>
                 <?php else: ?>
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo URLROOT . "users/register";?>">Register</a>

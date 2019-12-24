@@ -128,7 +128,7 @@ class User{
         $row = $this->db->resultRow();
 
         if($this->db->rowCount() > 0){
-            return true;
+            return $row;
         }else{
             return false;
         }
@@ -151,6 +151,21 @@ class User{
         $this->db->query("SELECT * FROM users WHERE username = :login OR email = :login ;");
         // bind value
         $this->db->bind(":login", $login);
+        // execute and get row
+        $row = $this->db->resultRow();
+
+        if($this->db->rowCount() > 0){
+            return $row;
+        }else{
+            return false;
+        }
+    }
+
+    public function findUserById($id){
+        // prepare statement
+        $this->db->query("SELECT * FROM users WHERE id = :id ;");
+        // bind value
+        $this->db->bind(":id", $id);
         // execute and get row
         $row = $this->db->resultRow();
 
@@ -192,6 +207,23 @@ class User{
         $this->db->query($sql);
         $this->db->bind(':image', $path);
         $this->db->bind(':id', $_SESSION['id']);
+
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    // update user secret
+    public function updateSecret($newSecret){
+       $newSecret = password_hash($newSecret, PASSWORD_DEFAULT);
+
+        $sql = "UPDATE users SET secret = :secret WHERE users.id = :id";
+
+        $this->db->query($sql);
+        $this->db->bind(":secret", $newSecret);
+        $this->db->bind(":id", $_SESSION['id']);
 
         if($this->db->execute()){
             return true;

@@ -84,7 +84,7 @@ class Users extends Controller {
                 // Register user
                 if($this->userModel->registerUser($data)){
                     $_SESSION["flash"] = new Flash("Registration complete!");
-                    redirect("/Users/login");
+                    redirect("Users/login");
                 }else{
                     die("Something went wrong");
                 }
@@ -179,7 +179,7 @@ class Users extends Controller {
 
         // check if user is logged in
         if(!isset($_SESSION["id"]) && !isset($_SESSION['email'])){
-            redirect("/users/login");
+            redirect("users/login");
         }
 
         if(empty($username)){
@@ -201,7 +201,7 @@ class Users extends Controller {
 
         // check if user is logged in
         if(!isset($_SESSION["id"]) && !isset($_SESSION['username'])){
-            redirect("/users/login");
+            redirect("users/login");
         }
 
         // check for POST
@@ -223,7 +223,7 @@ class Users extends Controller {
 
             if($this->userModel->updateProfile($user)){
                 $_SESSION["flash"] = new Flash("Profiel gewijzigd!");
-                redirect("/Users/profile");
+                redirect("Users/profile");
             }else{
                 die('something went wrong');
             }
@@ -244,6 +244,11 @@ class Users extends Controller {
 
     // upload image
     public function uploadImage(){
+
+        // check if user is logged in
+        if(!isset($_SESSION["id"]) && !isset($_SESSION['username'])){
+            redirect("users/login");
+        }
 
         // check if file is an image
         if(!empty($_FILES["image"]["tmp_name"])){
@@ -282,23 +287,117 @@ class Users extends Controller {
         }
     }
 
+
     // user account settings
     public function settings(){
 
+        // check if user is logged in
+        if(!isset($_SESSION["id"]) && !isset($_SESSION['username'])){
+            redirect("users/login");
+        }
+
+        // check for POST
+        if($_SERVER["REQUEST_METHOD"] == 'POST') {
+
+            // Sanitize POST data. 1. call htmlspecialchars() on entire array. 2. set every value as a string
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            // if user updates email
+            if(!empty($_POST['email'])){
+                $data = [
+                    'email'=>trim($_POST["email"]),
+                    'email_err' =>''
+                ];
+
+                // check if email already exists
+                if ($this->userModel->findUserByEmail($data['email'])){
+                    $data["email_err"] = "Email already exists";
+                    $_SESSION['flash'] = new Flash($data['email_err'], "alert alert-danger");
+                    redirect("Users/settings");
+                }
+
+                // update email
+
+
+            }  //if user updates password
+            elseif(!empty($_POST['secret']) && !empty($_POST['secret_confirm'])){
+                $data = [
+                    'secret'=>$_POST["secret"],
+                    'secret_confirm'=>$_POST["secret_confirm"],
+                    'secret_err'=> '',
+                    'secret_confirm_err'=>''
+                ];
+
+                // secret checks
+                if (strlen($data['secret']) < 6 ){
+                    $data["secret_err"] = "Password should be atleast 6 characters";
+                    $_SESSION['flash'] = new Flash($data['secret_err'], "alert alert-danger");
+                    redirect("Users/settings");
+                }
+
+                if ($data['secret'] !== $data["secret_confirm"]){
+                    $data["secret_confirm_err"] = "Passwords do not match";
+                    $_SESSION['flash'] = new Flash($data['secret_confirm_err'], "alert alert-danger");
+                    redirect("Users/settings");
+                }
+
+                // check if errors are empty
+                if(empty($data['secret_err']) && empty($data['secret_confirm_err'])){
+
+                    // get logged-in user from database
+                    $id = $_SESSION['id'];
+
+                    // get row from the user
+                    $user = $this->userModel->findUserById($id);
+
+                    // update secret
+                    if($this->userModel->updateSecret($data['secret'])){
+                        $_SESSION['flash'] = new Flash("Wachtwoord aangepast!");
+                        redirect("Users/settings");
+                    }else{
+                        $_SESSION['flash'] = new Flash("Something went wrong!", "alert alert-danger");
+                        redirect("Users/settings");
+                    }
+
+                }
+
+            }
+            // if input is empty
+            elseif(empty($_POST['secret']) || empty($_POST['secret_confirm']) || empty($_POST['email'])){
+                $_SESSION['flash'] = new Flash("Empty fields", "alert alert-danger");
+                redirect("Users/settings");
+            }
+
+        }else{
+            // get logged-in user from database
+            $id = $_SESSION['id'];
+
+            // get row from the user
+            $user = $this->userModel->findUserById($id);
+
+            $data = [
+                'email'=>$user->email
+            ];
+
+            $this->view("Users/settings", $data );
+        }
+
     }
+
 
     public function createUserSession($user){
         $_SESSION['id'] = $user->id;
         $_SESSION['email'] = $user->email;
         $_SESSION['username'] = $user->username;
-        redirect("/Pages/index");
+        redirect("Pages/index");
     }
 
     public function logout(){
         unset($_SESSION['id']);
         unset($_SESSION['email']);
         unset($_SESSION['username']);
-        redirect("/Users/login");
+        redirect("Users/login");
     }
 
 }
