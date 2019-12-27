@@ -16,9 +16,9 @@ require APPROOT . "/views/inc/header.php"
     <div class="row">
         <div class="col-md-6 mx-auto">
             <div class="card card-body bg-light mt-5">
-            <?php if(!empty($_SESSION['flNot have an account yetash'])) {$_SESSION['flash']->show();}?>
+            <?php if(!empty($_SESSION['flash'])) {$_SESSION['flash']->show();}?>
                 <h2>Login</h2>
-                <p>Please fill in your credentials to login</p>
+                <p>Vul hier je login gegevens in</p>
                 <form action="<?php echo URLROOT?>users/login" method="post">
                     <div class="form-group">
                         <label for="username">Username<sup>*</sup></label>

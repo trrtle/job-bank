@@ -51,3 +51,10 @@ function isLoggedIn(){
         return false;
     }
 }
+function comp_isLoggedIn(){
+    if(isset($_SESSION['comp_id']) && isset($_SESSION['comp_email'])){
+        return true;
+    }else{
+        return false;
+    }
+}

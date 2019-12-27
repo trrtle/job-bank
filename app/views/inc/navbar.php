@@ -29,7 +29,7 @@
             </ul>
 
             <ul class="navbar-nav ml-auto">
-                <?php if(isset($_SESSION["id"]) && isset($_SESSION['username'])): ?>
+                <?php if(isLoggedIn()): ?>
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo URLROOT . "users/profile";?>">Profiel</a>
                     </li>
@@ -41,12 +41,24 @@
                             <i class="fa fa-cog"></i>
                         </a>
                     </li>
+                <?php elseif(comp_isLoggedIn()):?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo URLROOT . "companys/profile";?>">Profiel</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo URLROOT . "companys/logout";?>">logout</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo URLROOT . "companys/settings";?>">
+                            <i class="fa fa-cog"></i>
+                        </a>
+                    </li>
                 <?php else: ?>
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo URLROOT . "users/login";?>">Sollicitant</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo URLROOT . "companys/login";?>">Bedrijf</a>
+                    <a class="nav-link" href="<?php echo URLROOT . "Companys/login";?>">Bedrijf</a>
                 </li>
                 <?php endif; ?>
             </ul>
