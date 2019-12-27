@@ -227,7 +227,7 @@ class Users extends Controller {
 
             if($this->userModel->updateProfile($user)){
                 $_SESSION["flash"] = new Flash("Profiel gewijzigd!");
-                redirect("Users/profile");
+                redirect("Users/profile/". $_SESSION["username"]);
             }else{
                 die('something went wrong');
             }
@@ -270,7 +270,7 @@ class Users extends Controller {
                     // move the uploaded file to target
                     if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
                         $this->userModel->uploadImagePath($target_file);
-                        redirect("Users/profile");
+                        redirect("Users/profile" . $_SESSION["username"]);
 
                     } else {
                         die("Sorry, there was an error uploading your file.");
