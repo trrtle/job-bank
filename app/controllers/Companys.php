@@ -99,16 +99,56 @@ class Companys extends Controller{
 
         $this->view("/Companys/profile", $data);
 
+    }
 
+    // Edit user profile
+    public function edit(){
 
+        // check if company is logged in
+        if(!comp_isLoggedIn()){
+            redirect("Pages/index");
+        }
+
+        // check for POST
+        if($_SERVER["REQUEST_METHOD"] == 'POST') {
+
+            // Sanitize POST data. 1. call htmlspecialchars() on entire array. 2. set every value as a string
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            // process form
+            $company = [
+                'comp_name' => trim($_POST['compname']),
+                'comp_city' => $_POST['city'],
+            ];
+
+            if($this->compModel->updateProfile($company)){
+                $_SESSION["flash"] = new Flash("Profiel gewijzigd!");
+                redirect("Companys/profile/" . $_SESSION["comp_username"]);
+            }else{
+                die('something went wrong');
+            }
+        }
+
+        // get logged-in user from database
+        $company = $_SESSION['comp_username'];
+
+        // get row from the user
+        $company = $this->compModel->findCompByName($company);
+
+        $data = [
+            'company'=>$company
+        ];
+
+        $this->view("Companys/edit", $data);
     }
 
     // company account settings
     public function settings(){
 
         // check if company is logged in
-        if(!isset($_SESSION["comp_id"]) && !isset($_SESSION['comp_username'])){
-            redirect("companys/login");
+        if(!comp_isLoggedIn()){
+            redirect("Pages/index");
         }
 
         // check for POST

@@ -205,7 +205,7 @@ class Users extends Controller {
     public function edit(){
 
         // check if user is logged in
-        if(!isset($_SESSION["id"]) && !isset($_SESSION['username'])){
+        if(!user_isLoggedIn()){
             redirect("users/login");
         }
 
@@ -221,7 +221,6 @@ class Users extends Controller {
                 'firstname' => trim($_POST['firstname']),
                 'lastname' => $_POST['lastname'],
                 'city' => $_POST['city'],
-                'image' => $_POST['image'],
                 'age' => $_POST['age'],
                 'gender' => $_POST['gender']
             ];

@@ -18,30 +18,18 @@ require APPROOT . "/views/inc/header.php"
             <h1>Wijzig je profiel</h1>
         </div>
         <div class="card-body">
-        <form class="form-group" action="<?php echo URLROOT?>users/edit" method="post">
+        <form class="form-group" action="<?php echo URLROOT ?>companys/edit" method="post">
             <h4>Gegevens</h4>
         <div class="row mb-3">
             <div class="col-12 col-md-6">
-                <label for="firstname">Voornaam</label>
-                <input type="text" class="form-control" name="firstname" value="<?php echo $data['user']->firstname?>">
-            </div>
-            <div class="col-12 col-md-6">
-                <label for="lastname">Achternaam</label>
-                <input type="text" class="form-control" name="lastname" value="<?php echo $data['user']->lastname?>">
+                <label for="compname">Weertegeven naam</label>
+                <input type="text" class="form-control" name="compname" value="<?php echo $data['company']->comp_name?>">
             </div>
         </div>
         <div class="row mb-3">
             <div class="col-12 col-md-6">
-                <label for="city">Woonplaats</label>
-                <input type="text" class="form-control" name="city" value="<?php echo $data['user']->city?>">
-            </div>
-            <div class="col-6 col-md-3">
-                <label for="age">Leeftijd</label>
-                <input type="number" class="form-control" name="age" value="<?php echo $data['user']->age?>">
-            </div>
-            <div class="col-6 col-md-3">
-                <label for="gender">Gender</label>
-                <input type="text" class="form-control" name="gender" value="<?php echo $data['user']->gender?>">
+                <label for="city">Stad</label>
+                <input type="text" class="form-control" name="city" value="<?php echo $data['company']->comp_city?>">
             </div>
         </div>
         <button type="submit" class="btn btn-primary">
@@ -52,7 +40,7 @@ require APPROOT . "/views/inc/header.php"
 
     <hr>
 
-    <form class="form-group" action="<?php echo URLROOT?>users/uploadImage" method="POST" enctype="multipart/form-data">
+    <form class="form-group" action="<?php echo URLROOT?>companys/uploadImage" method="POST" enctype="multipart/form-data">
         <div class="row mb-3">
             <div class="col">
                 <label for="image"><h4>Afbeelding</h4></label>
@@ -67,7 +55,7 @@ require APPROOT . "/views/inc/header.php"
                     </button>
                 </div>
                 <div class="col offset-sm-4 offset-md-6 offset-lg-8">
-                    <a href="<?php echo URLROOT?>users/profile">
+                    <a href="<?php echo URLROOT . "companys/profile/" . $_SESSION["comp_username"]?>">
                         <button type="button" class="btn btn-danger">
                             <i class="fa fa-undo"></i>
                             Annuleer

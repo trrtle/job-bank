@@ -169,6 +169,24 @@ class Company{
             return false;
         }
     }
+
+    public function updateProfile($company){
+        $sql = "UPDATE companys SET 
+                    comp_name = :compname, 
+                    comp_city = :city
+                    WHERE comp_id = :id";
+
+        $this->db->query($sql);
+        $this->db->bind(":compname",$company['comp_name']);
+        $this->db->bind(":city",$company['comp_city']);
+        $this->db->bind(":id",$_SESSION['comp_id']);
+
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
 
 

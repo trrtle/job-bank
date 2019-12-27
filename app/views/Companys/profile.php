@@ -17,7 +17,7 @@ $comp = $data['company'];
         <?php if(!empty($_SESSION['flash'])) {$_SESSION['flash']->show();}?>
         <div class="row">
             <div class="col offset-10">
-                <a href="<?php echo URLROOT ?>/companys/edit">
+                <a href="<?php echo URLROOT ?>Companys/edit">
                     <button type="button" class="btn btn-primary">
                         <i class="fa fa-pencil-square-o edit-icon-profile"></i> Wijzig
                     </button>
