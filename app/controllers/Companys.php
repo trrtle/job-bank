@@ -84,23 +84,21 @@ class Companys extends Controller{
     public function profile($comp_name = ''){
 
         // check if user is logged in
-        if(isLoggedIn() || comp_isLoggedIn()){
-
-            if(empty($comp_name)){
-                redirect("Pages/index");
-            }
-
-            $company = $this->compModel->findCompByName($comp_name);
-
-            $data = [
-                'company'=>$company
-            ];
-
-            $this->view("/Companys/profile", $data);
-
-        }else{
+        if(!isLoggedIn()){
             redirect("users/login");
         }
+
+        $company = $this->compModel->findCompByName($comp_name);
+
+        if(empty($company)){
+            redirect("Pages/index");
+        }
+        $data = [
+            'company'=>$company
+        ];
+
+        $this->view("/Companys/profile", $data);
+
 
 
     }

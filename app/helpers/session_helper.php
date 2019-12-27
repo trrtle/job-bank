@@ -45,7 +45,8 @@ class Flash
 }
 
 function isLoggedIn(){
-    if(isset($_SESSION['id']) && isset($_SESSION['email'])){
+    if(isset($_SESSION['id']) && isset($_SESSION['email']) ||
+        isset($_SESSION['comp_id']) && isset($_SESSION['comp_email'])){
         return true;
     }else{
         return false;
@@ -53,6 +54,13 @@ function isLoggedIn(){
 }
 function comp_isLoggedIn(){
     if(isset($_SESSION['comp_id']) && isset($_SESSION['comp_email'])){
+        return true;
+    }else{
+        return false;
+    }
+}
+function user_isLoggedIn(){
+    if(isset($_SESSION['id']) && isset($_SESSION['email'])){
         return true;
     }else{
         return false;
