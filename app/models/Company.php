@@ -187,6 +187,20 @@ class Company{
             return false;
         }
     }
+
+    // upload image path
+    public function uploadImagePath($path){
+        $sql = "UPDATE companys SET comp_image = :image WHERE comp_id = :id";
+        $this->db->query($sql);
+        $this->db->bind(':image', $path);
+        $this->db->bind(':id', $_SESSION['comp_id']);
+
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
 
 

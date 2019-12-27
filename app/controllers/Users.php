@@ -270,7 +270,7 @@ class Users extends Controller {
                     // move the uploaded file to target
                     if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
                         $this->userModel->uploadImagePath($target_file);
-                        redirect("Users/profile" . $_SESSION["username"]);
+                        redirect("Users/profile/" . $_SESSION["username"]);
 
                     } else {
                         die("Sorry, there was an error uploading your file.");

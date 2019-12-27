@@ -40,7 +40,7 @@ require APPROOT . "/views/inc/header.php"
 
     <hr>
 
-    <form class="form-group" action="<?php echo URLROOT?>companys/uploadImage" method="POST" enctype="multipart/form-data">
+    <form class="form-group" action="<?php echo URLROOT?>Companys/uploadImage" method="POST" enctype="multipart/form-data">
         <div class="row mb-3">
             <div class="col">
                 <label for="image"><h4>Afbeelding</h4></label>
