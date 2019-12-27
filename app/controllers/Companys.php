@@ -118,7 +118,7 @@ class Companys extends Controller{
                     redirect("companys/settings");
                 }
 
-            }  //if user updates password
+            }  //if company updates password
             elseif(!empty($_POST['secret']) && !empty($_POST['secret_confirm'])){
                 $data = [
                     'secret'=>$_POST["secret"],
@@ -131,13 +131,13 @@ class Companys extends Controller{
                 if (strlen($data['secret']) < 6 ){
                     $data["secret_err"] = "Password should be atleast 6 characters";
                     $_SESSION['flash'] = new Flash($data['secret_err'], "alert alert-danger");
-                    redirect("Users/settings");
+                    redirect("Companys/settings");
                 }
 
                 if ($data['secret'] !== $data["secret_confirm"]){
                     $data["secret_confirm_err"] = "Passwords do not match";
                     $_SESSION['flash'] = new Flash($data['secret_confirm_err'], "alert alert-danger");
-                    redirect("Users/settings");
+                    redirect("Companys/settings");
                 }
 
                 // check if errors are empty
@@ -145,9 +145,9 @@ class Companys extends Controller{
 
 
                     // update secret
-                    if($this->userModel->updateSecret($data['secret'])){
+                    if($this->compModel->updateSecret($data['secret'])){
                         $_SESSION['flash'] = new Flash("Wachtwoord aangepast!");
-                        redirect("Users/settings");
+                        redirect("Companys/settings");
                     }else{
                         $_SESSION['flash'] = new Flash("Something went wrong!", "alert alert-danger");
                         redirect("Users/settings");

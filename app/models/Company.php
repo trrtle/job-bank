@@ -138,6 +138,22 @@ class Company{
         }
     }
 
+    // update password
+    public function updateSecret($newSecret){
+        $newSecret = password_hash($newSecret, PASSWORD_DEFAULT);
+
+        $sql = "UPDATE companys SET comp_secret = :secret WHERE companys.comp_id = :id";
+
+        $this->db->query($sql);
+        $this->db->bind(":secret", $newSecret);
+        $this->db->bind(":id", $_SESSION['comp_id']);
+
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
 
 
