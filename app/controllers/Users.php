@@ -22,10 +22,14 @@ class Users extends Controller {
     // default page
     public function index(){
 
+        if(!isLoggedIn()){
+            redirect("users/login");
+        }
+
         $data = [
-            "title"=>"TurtleMVC"
+
         ];
-        $this->view('/Pages/index', $data);
+        $this->view('Users/index', $data);
     }
 
     // user registration
@@ -393,7 +397,7 @@ class Users extends Controller {
         $_SESSION['id'] = $user->id;
         $_SESSION['email'] = $user->email;
         $_SESSION['username'] = $user->username;
-        redirect("Pages/index");
+        redirect('Users/index');
     }
 
     public function logout(){

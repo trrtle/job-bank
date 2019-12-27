@@ -48,7 +48,7 @@ require APPROOT . "/views/inc/header.php"
                         <button type="submit" class="btn btn-success btn-block">Register</button>
                     </div>
                     <div class="col">
-                        <a href="<?php echo URLROOT?>users/login"><button type="button" class="btn btn-light">Already have an account?</button></a>
+                        <a href="<?php echo URLROOT?>users/login"><button type="button" class="btn btn-light">Heb je al een account?</button></a>
                     </div>
                 </div>
             </form>

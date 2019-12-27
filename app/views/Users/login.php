@@ -16,7 +16,7 @@ require APPROOT . "/views/inc/header.php"
     <div class="row">
         <div class="col-md-6 mx-auto">
             <div class="card card-body bg-light mt-5">
-            <?php if(!empty($_SESSION['flash'])) {$_SESSION['flash']->show();}?>
+            <?php if(!empty($_SESSION['flNot have an account yetash'])) {$_SESSION['flash']->show();}?>
                 <h2>Login</h2>
                 <p>Please fill in your credentials to login</p>
                 <form action="<?php echo URLROOT?>users/login" method="post">
@@ -37,7 +37,7 @@ require APPROOT . "/views/inc/header.php"
                             <button type="submit" class="btn btn-success btn-block">Login</button>
                         </div>
                         <div class="col">
-                            <a href="<?php echo URLROOT?>users/register"><button type="button" class="btn btn-light">Not have an account yet?</button></a>
+                            <a href="<?php echo URLROOT?>users/register"><button type="button" class="btn btn-light">Heb je nog geen account?</button></a>
                         </div>
                     </div>
                 </form>

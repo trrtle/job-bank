@@ -43,10 +43,10 @@
                     </li>
                 <?php else: ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo URLROOT . "users/register";?>">Register</a>
+                    <a class="nav-link" href="<?php echo URLROOT . "users/login";?>">Sollicitant</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo URLROOT . "users/login";?>">login</a>
+                    <a class="nav-link" href="<?php echo URLROOT . "companys/login";?>">Bedrijf</a>
                 </li>
                 <?php endif; ?>
             </ul>
