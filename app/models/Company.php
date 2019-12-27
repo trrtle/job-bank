@@ -78,6 +78,66 @@ class Company{
         }
     }
 
+
+
+    /**
+     * @method FindCompbyEmail;
+     *
+     * 1. prepares statement.
+     * 2. binds values.
+     * 3. stores result in $row
+     * 4. checks if there are more than 0 rows returned
+     *
+     * @param string $email - Email that must be searched.
+     *
+     * @return bool
+     */
+    public function findCompByEmail($email){
+        // prepare statement
+        $this->db->query("SELECT * FROM companys WHERE comp_email = :email ;");
+        // bind value
+        $this->db->bind(":email", $email);
+        // execute and get row
+        $row = $this->db->resultRow();
+
+        if($this->db->rowCount() > 0){
+            return $row;
+        }else{
+            return false;
+        }
+    }
+
+    public function findCompById($id){
+        // prepare statement
+        $this->db->query("SELECT * FROM companys WHERE comp_id = :id ;");
+        // bind value
+        $this->db->bind(":id", $id);
+        // execute and get row
+        $row = $this->db->resultRow();
+
+        if($this->db->rowCount() > 0){
+            return $row;
+        }else{
+            return false;
+        }
+    }
+
+    // update Email adress
+    public function updateEmail($newEmail){
+
+        $sql = "UPDATE companys SET comp_email = :email WHERE companys.comp_id = :id";
+
+        $this->db->query($sql);
+        $this->db->bind(":email", $newEmail);
+        $this->db->bind(":id", $_SESSION['comp_id']);
+
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }
 
 
