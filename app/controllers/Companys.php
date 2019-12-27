@@ -80,6 +80,31 @@ class Companys extends Controller{
 
     }
 
+    // Company profile
+    public function profile($comp_name = ''){
+
+        // check if user is logged in
+        if(isLoggedIn() || comp_isLoggedIn()){
+
+            if(empty($comp_name)){
+                redirect("Pages/index");
+            }
+
+            $company = $this->compModel->findCompByName($comp_name);
+
+            $data = [
+                'company'=>$company
+            ];
+
+            $this->view("/Companys/profile", $data);
+
+        }else{
+            redirect("users/login");
+        }
+
+
+    }
+
     // company account settings
     public function settings(){
 

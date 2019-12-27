@@ -78,6 +78,21 @@ class Company{
         }
     }
 
+    public function findCompByName($compName){
+        // prepare statement
+        $this->db->query("SELECT * FROM companys WHERE comp_username = :username ;");
+        // bind value
+        $this->db->bind(":username", $compName);
+        // execute and get row
+        $row = $this->db->resultRow();
+
+        if($this->db->rowCount() > 0){
+            return $row;
+        }else{
+            return false;
+        }
+    }
+
 
 
     /**
