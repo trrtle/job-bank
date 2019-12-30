@@ -13,7 +13,6 @@ require APPROOT . "/views/inc/header.php";
 /** @var array $data */
 ?>
 
-<?php if(!empty($_SESSION['flash'])) {$_SESSION['flash']->show();}?>
 <div class="row">
     <h1>Bedrijfs account instellingen</h1>
 </div>

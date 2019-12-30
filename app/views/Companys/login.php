@@ -16,7 +16,6 @@ require APPROOT . "/views/inc/header.php"
 <div class="row">
     <div class="col-md-6 mx-auto">
         <div class="card card-body bg-light mt-5">
-            <?php if(!empty($_SESSION['flash'])) {$_SESSION['flash']->show();}?>
             <h2>Login voor bedrijven</h2>
             <p>Vul hier uw login gegevens in</p>
             <form action="<?php echo URLROOT?>Companys/login" method="post">

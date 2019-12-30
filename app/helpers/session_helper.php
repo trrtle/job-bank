@@ -38,6 +38,7 @@ class Flash
 
     public function show()
     {
+
         echo '<div class="' . $this->type . '" role="alert">' . $this->message . '</div>';
         unset($_SESSION['flash']);
     }

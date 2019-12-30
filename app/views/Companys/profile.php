@@ -14,7 +14,7 @@ require APPROOT . "/views/inc/header.php";
 $comp = $data['company'];
 ?>
     <?php if($_SESSION['comp_id'] == $comp->comp_id && $_SESSION['comp_username'] == $comp->comp_username): ?>
-        <?php if(!empty($_SESSION['flash'])) {$_SESSION['flash']->show();}?>
+        <?php if(!empty($_SESSION['flash'])) {$_SESSION['flash']->show(); unset($_SESSION['flash']);}?>
         <div class="row">
             <div class="col offset-10">
                 <a href="<?php echo URLROOT ?>Companys/edit">

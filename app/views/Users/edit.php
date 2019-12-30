@@ -12,7 +12,6 @@
 require APPROOT . "/views/inc/header.php"
 /** @var array $data */
 ?>
-<?php if(!empty($_SESSION['flash'])) {$_SESSION['flash']->show();}?>
     <div class="card bg-white">
         <div class="card-header">
             <h1>Wijzig je profiel</h1>
