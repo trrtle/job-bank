@@ -170,7 +170,7 @@ class Users extends Controller {
                 'username'=>'',
                 'secret'=>'',
                 'username_err'=>'',
-                'secret_err'=>'',
+                'secret_err'=>''
             ];
 
             $this->view('/Users/login', $data);
@@ -219,8 +219,8 @@ class Users extends Controller {
             // process form
             $user = [
                 'firstname' => trim($_POST['firstname']),
-                'lastname' => $_POST['lastname'],
-                'city' => $_POST['city'],
+                'lastname' => trim($_POST['lastname']),
+                'city' => trim($_POST['city']),
                 'age' => $_POST['age'],
                 'gender' => $_POST['gender']
             ];
@@ -260,8 +260,8 @@ class Users extends Controller {
 
             if($image){
 
-                // check file size is les then 5mb
-                if ($_FILES["image"]["size"] < 5000000) {
+                // check file size is les then 2mb
+                if ($_FILES["image"]["size"] < 2000000) {
 
                     // set target
                     $target_dir = "img/";
@@ -273,21 +273,22 @@ class Users extends Controller {
                         redirect("Users/profile/" . $_SESSION["username"]);
 
                     } else {
-                        die("Sorry, there was an error uploading your file.");
+                        redirect("Users/edit");;
                     }
 
                 }else{
-                    $_SESSION['flash'] = new Flash("Image is to big", "alert alert-danger");
-                    redirect("Users/edit");
+                    $_SESSION['flash'] = new Flash("File size is to big", "alert alert-danger");
+                    redirect("Users/profile/" . $_SESSION["username"]);
                 }
 
             }else{
                 $_SESSION['flash'] = new Flash("Is not an image!", "alert alert-danger");
-                redirect("Users/edit");
+                redirect("Users/profile/" . $_SESSION["username"]);
             }
 
         }else{
-           redirect("Users/edit");
+            $_SESSION['flash'] = new Flash("Something went wrong", "alert alert-danger");
+           redirect("Users/profile/" . $_SESSION["username"]);
         }
     }
 

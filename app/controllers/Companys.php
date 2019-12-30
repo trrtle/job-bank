@@ -157,8 +157,8 @@ class Companys extends Controller{
 
             if($image){
 
-                // check file size is les then 5mb
-                if ($_FILES["image"]["size"] < 5000000) {
+                // check file size is les then 2mb
+                if ($_FILES["image"]["size"] < 2000000) {
 
                     // set target
                     $target_dir = "img/";
@@ -175,17 +175,18 @@ class Companys extends Controller{
 
                 }else{
                     $_SESSION['flash'] = new Flash("Image is to big", "alert alert-danger");
-                    redirect("companys/edit");
+                    redirect("companys/profile/" . $_SESSION["comp_username"]);
                 }
 
             }else{
-                $_SESSION['flash'] = new Flash("Is not an image!", "alert alert-danger");
-                redirect("companys/edit");
+                $_SESSION['flash'] = new Flash("Not an image", "alert alert-danger");
+                redirect("companys/profile/" . $_SESSION["comp_username"]);
             }
 
         }
         else{
-            redirect("Companys/edit");
+            $_SESSION['flash'] = new Flash("Something went wrong", "alert alert-danger");
+            redirect("companys/profile/" . $_SESSION["comp_username"]);
         }
     }
 

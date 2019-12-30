@@ -44,6 +44,7 @@ require APPROOT . "/views/inc/header.php"
             <div class="col">
                 <label for="image"><h4>Afbeelding</h4></label>
                 <input type="file" class="form-control-file" name="image">
+                <small><i>max 2 mb.</i></small>
             </div>
         </div>
             <div class="row mb-3">
