@@ -1,6 +1,6 @@
 <?php
 /**
-* pages/index.php - placeholder index page
+* pages/overview.php - placeholder index page
 *
 * @package    TurtleMVC-Core
 * @license    https://opensource.org/licenses/BSD-3-Clause

@@ -1,6 +1,6 @@
 <?php
 /**
-* public/index.php - initializes the core of the application
+* public/overview.php - initializes the core of the application
 *
 * @package    TurtleMVC-Core
 * @license    https://opensource.org/licenses/BSD-3-Clause

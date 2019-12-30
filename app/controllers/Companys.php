@@ -8,16 +8,16 @@ class Companys extends Controller{
         $this->compModel = $this->model("Company");
     }
 
+    //default
     public function index(){
-        if(!comp_isLoggedIn()){
-            redirect("Pages/index");
-        }
 
         $data = [
 
         ];
-        $this->view('Companys/index', $data);
+
+        $this->view('Pages/index', $data);
     }
+
 
     public function login(){
         // check for POST
@@ -301,6 +301,6 @@ class Companys extends Controller{
         $_SESSION['comp_id'] = $user->comp_id;
         $_SESSION['comp_email'] = $user->comp_email;
         $_SESSION['comp_username'] = $user->comp_username;
-        redirect('Companys/index');
+        redirect('Offers/overview');
     }
 }
