@@ -43,6 +43,9 @@
                     </li>
                 <?php elseif(comp_isLoggedIn()):?>
                     <li class="nav-item">
+                        <a class="nav-link" href="<?php echo URLROOT . "offers/dashboard";?>">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="<?php echo URLROOT . "companys/profile/" . $_SESSION["comp_username"];?>">Profiel</a>
                     </li>
                     <li class="nav-item">

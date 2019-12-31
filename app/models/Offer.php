@@ -15,6 +15,13 @@ class Offer {
         return $this->db->resultSet();
     }
 
+    public function getOfferById($id){
+        $sql = "select * from offers WHERE offer_id = :id";
+        $this->db->query($sql);
+        $this->db->bind(':id', $id);
+        return $this->db->resultRow();
+    }
+
     public function addOffer($offerTitle, $offerDesc, $offer_tags){
         $sql = "INSERT INTO offers (comp_id, offer_title, offer_desc, offer_tags) 
                 VALUES (:comp_id, :offer_title, :offer_desc, :offer_tags)";

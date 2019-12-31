@@ -122,7 +122,7 @@ class Company{
         }
     }
 
-    public function findCompById($id){
+    public function getCompById($id){
         // prepare statement
         $this->db->query("SELECT * FROM companys WHERE comp_id = :id ;");
         // bind value

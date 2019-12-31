@@ -279,7 +279,7 @@ class Companys extends Controller{
             $id = $_SESSION['comp_id'];
 
             // get row from the user
-            $comp = $this->compModel->findCompById($id);
+            $comp = $this->compModel->getCompById($id);
 
             $data = [
                 'email'=>$comp->comp_email

@@ -1,6 +1,6 @@
 <?php
 /**
- * Company/overview.php
+ * Company/dashboard.php
  *
  * @package    TurtleMVC-Core
  * @license    https://opensource.org/licenses/BSD-3-Clause
@@ -25,11 +25,27 @@ $offers = $data['offers'];
         </thead>
         <tbody>
         <?php foreach($offers as $offer): ?>
-        <tr>
-            <td><?php echo $offer->offer_title?></td>
-            <td><?php echo substr($offer->offer_desc, 0, 80)?>...</td>
-            <td><?php echo $offer->offer_date?></td>
-        </tr>
+
+            <tr>
+
+                    <td>
+                        <a href="<?php echo  URLROOT . "Offers/show/" . $offer->offer_id;?>">
+                            <?php echo $offer->offer_title?>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="<?php echo  URLROOT . "Offers/show/" . $offer->offer_id;?>">
+                            <?php echo substr($offer->offer_desc, 0, 80)?>...
+                    </td>
+                        </a>
+                    <td>
+                        <a href="<?php echo  URLROOT . "Offers/show/" . $offer->offer_id;?>">
+                            <?php echo $offer->offer_date?>
+                        </a>
+                    </td>
+
+            </tr>
+
         <?php endforeach;?>
         </tbody>
     </table>
