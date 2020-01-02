@@ -65,9 +65,137 @@ class Offers extends Controller{
             $this->dashboard();
         }
 
+    }
+
+    public function add(){
+
+        // check for POST
+        if ($_SERVER["REQUEST_METHOD"] == 'POST') {
+
+            // Sanitize POST data. 1. call htmlspecialchars() on entire array. 2. set every value as a string
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            // proces form
+            $data = [
+                'offer_title'=>$_POST['offer_title'],
+                'offer_desc'=>$_POST['offer_desc'],
+                'offer_tags'=>$_POST['offer_tags'],
+                'title_err'=>'',
+                'desc_err'=>'',
+                'tags_err'=>''
+            ];
+
+            // validate user input
+            if(empty($data["offer_title"])){
+                $data["title_err"] = "Vul een titel in";
+            }
+
+            if(empty($data["offer_desc"])){
+                $data["desc_err"] = "Vul beschrijving in";
+            }
+
+            if(empty($data["offer_tags"])){
+                $data["tags_err"] = "Vul minimaal 1 tag in";
+            }
+
+            // check if errors are empty
+            if(empty($data['title_err']) && empty($data['desc_err']) && empty($data['tags_err'])){
+                // add vacature
+                if($this->offerModel->addOffer($data['offer_title'], $data['offer_desc'], $data['offer_tags'])){
+                    redirect('Offers/dashboard');
+                    $_SESSION['flash'] = new Flash("Vacature toegevoegd");
+                }else{
+                    redirect('Offers/add');
+                    $_SESSION['flash'] = new Flash("Er is iets fout gegaan", "alert alert-danger");
+                }
+            }else{
+                // Load view with errors
+                $this->view("Offers/add", $data);
+            }
 
 
+        }else {
+
+            // initialize form
+            $data = [
+                'offer_title'=>'',
+                'offer_desc'=>'',
+                'offer_tags'=>'',
+                'title_err'=>'',
+                'desc_err'=>'',
+                'tags_err'=>''
+            ];
+
+            $this->view("Offers/add", $data);
+        }
+
+    }
+
+    public function edit($offer_id){
+
+        // check for POST
+        if ($_SERVER["REQUEST_METHOD"] == 'POST') {
+
+            // Sanitize POST data. 1. call htmlspecialchars() on entire array. 2. set every value as a string
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            // proces form
+            $data = [
+                'offer_title'=>$_POST['offer_title'],
+                'offer_desc'=>$_POST['offer_desc'],
+                'offer_tags'=>$_POST['offer_tags'],
+                'title_err'=>'',
+                'desc_err'=>'',
+                'tags_err'=>''
+            ];
+
+            // validate user input
+            if(empty($data["offer_title"])){
+                $data["title_err"] = "Vul een titel in";
+            }
+
+            if(empty($data["offer_desc"])){
+                $data["desc_err"] = "Vul beschrijving in";
+            }
+
+            if(empty($data["offer_tags"])){
+                $data["tags_err"] = "Vul minimaal 1 tag in";
+            }
+
+            // check if errors are empty
+            if(empty($data['title_err']) && empty($data['desc_err']) && empty($data['tags_err'])){
+                // update offer
+                if($this->offerModel->updateOffer($offer_id, $_POST['offer_title'], $_POST['offer_desc'], $_POST['offer_tags'])){
+                    redirect('Offers/dashboard');
+                    $_SESSION['flash'] = new Flash("Vacature is gewijzigd");
+                }else{
+                    redirect('Offers/dashboard');
+                    $_SESSION['flash'] = new Flash("Er is iets fout gegaan", "alert alert-danger");
+                }
+            }
+            else{
+                redirect('Offers/dashboard');
+                $_SESSION['flash'] = new Flash("Vacature niet gewijzigd, velden mogen niet leeg zijn!", "alert alert-danger");
+            }
 
 
+        }else {
+
+            $offer = $this->offerModel->getOfferById($offer_id);
+            // initialize form
+            $data = [
+                'offer_title'=>$offer->offer_title,
+                'offer_desc'=>$offer->offer_desc,
+                'offer_tags'=>$offer->offer_tags,
+                'offer_id'=>$offer->offer_id,
+                'title_err'=>'',
+                'desc_err'=>'',
+                'tags_err'=>''
+            ];
+
+            $this->view("Offers/edit", $data);
+        }
     }
 }

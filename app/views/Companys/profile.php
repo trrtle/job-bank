@@ -15,7 +15,7 @@ $comp = $data['company'];
 ?>
     <?php if($_SESSION['comp_id'] == $comp->comp_id && $_SESSION['comp_username'] == $comp->comp_username): ?>
         <?php if(!empty($_SESSION['flash'])) {$_SESSION['flash']->show(); unset($_SESSION['flash']);}?>
-        <div class="row">
+        <div class="row mb-3">
             <div class="col offset-10">
                 <a href="<?php echo URLROOT ?>Companys/edit">
                     <button type="button" class="btn btn-primary">
@@ -27,29 +27,27 @@ $comp = $data['company'];
     <?php endif ?>
 <!--echo URLROOT . "public/img/" . $user->username . ".avatar"-->
 </div>
-<div class="card card-body bg-white mt-3">
-<div class="row text-center ">
+<div class="row mb-3">
     <div class="col-6">
         <img src="<?php echo URLROOT  . $comp->comp_image?>" class="img-thumbnail avatar">
     </div>
     <div class="col-6">
-        <div class="card">
-            <ul class="list-group">
-                <li class="list-group-item">
-                        <h3><strong class="pull-left">Naam: </strong><span class="pull-right"><?php  echo ucfirst($comp->comp_name) ?></h3></span>
-                </li>
-                <li class="list-group-item">
-                    <strong class="pull-left">
-                        Plaats:
-                    </strong>
-                    <span class="pull-right">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <h3><strong class="pull-left">Naam: </strong><span class="pull-right"><?php  echo ucfirst($comp->comp_name) ?></h3></span>
+            </li>
+            <li class="list-group-item">
+                <strong class="pull-left">
+                    Plaats:
+                </strong>
+                <span class="pull-right">
                             <?php echo $comp->comp_city ?>
                     </span>
-                </li>
-            </ul>
-        </div>
+            </li>
+        </ul>
     </div>
 </div>
-</div>
+
+
 <?php require APPROOT . "/views/inc/footer.php"?>
 

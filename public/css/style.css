@@ -9,6 +9,7 @@ body{
 
 td {
     overflow: hidden;
+    align-content: center;
 }
 td a {
     display: block;
