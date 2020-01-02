@@ -58,7 +58,7 @@ $offers = $data['offers'];
                     </a>
                 </td>
                 <td>
-                    <a href="#">
+                    <a href="<?php echo URLROOT . "Offers/delete/" . $offer->offer_id?>">
                         <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></i></button>
                     </a>
                 </td>

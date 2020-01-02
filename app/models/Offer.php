@@ -56,4 +56,23 @@ class Offer {
             return false;
         }
     }
+
+    public function deleteOffer($offer_id){
+       $sql = "UPDATE offers SET 
+        comp_id = NULL, 
+        offer_title = NULL, 
+        offer_desc = NULL, 
+        offer_tags = NULL, 
+        offer_date = NULL 
+        WHERE `offers`.`offer_id` = :id";
+
+        $this->db->query($sql);
+        $this->db->bind(':id', $offer_id);
+
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

@@ -206,4 +206,21 @@ class Offers extends Controller{
             $this->view("Offers/edit", $data);
         }
     }
+
+    public function delete($offer_id){
+
+        //get offer from database
+        $offer = $this->offerModel->getOfferById($offer_id);
+
+        // if offer is not from the logged in company redirect to dashboard
+        if($offer->comp_id != $_SESSION["comp_id"]){
+            redirect('Offers/das;hboard');
+        }
+
+        if($this->offerModel->deleteOffer($offer_id)){
+            redirect('Offers/dashboard');
+            $_SESSION['flash'] = new Flash("Vacature is verwijderd");
+        }
+
+    }
 }
