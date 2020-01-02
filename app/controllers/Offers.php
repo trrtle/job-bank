@@ -134,6 +134,14 @@ class Offers extends Controller{
 
     public function edit($offer_id){
 
+        //get offer from database
+        $offer = $this->offerModel->getOfferById($offer_id);
+
+        // if offer is not from the logged in company redirect to dashboard
+        if($offer->comp_id != $_SESSION["comp_id"]){
+            redirect('Offers/dashboard');
+        }
+
         // check for POST
         if ($_SERVER["REQUEST_METHOD"] == 'POST') {
 
@@ -183,7 +191,7 @@ class Offers extends Controller{
 
         }else {
 
-            $offer = $this->offerModel->getOfferById($offer_id);
+
             // initialize form
             $data = [
                 'offer_title'=>$offer->offer_title,
