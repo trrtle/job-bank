@@ -6,10 +6,7 @@ class Offers extends Controller{
     private $compModel;
 
     public function __construct()
-    {   // redirect if user is not logged in
-        if(!comp_isLoggedIn()){
-            redirect("Pages/index");
-        }
+    {
 
         // set current model
         $this->offerModel = $this->model("Offer");
@@ -28,6 +25,12 @@ class Offers extends Controller{
 
 
     public function dashboard(){
+
+        // redirect if user is not logged in
+        if(!comp_isLoggedIn()){
+            redirect("Pages/index");
+        }
+
         $result = $this->offerModel->getAllOffersByCompId($_SESSION['comp_id']);
         $data = [
             'offers'=>$result
@@ -38,36 +41,47 @@ class Offers extends Controller{
 
     public function show($offer_id = ''){
 
-        // if no id is given return to overview
-        if(!empty($offer_id)){
+        // redirect if user is not logged in
+        if(comp_isLoggedIn() || isLoggedIn()){
 
-            // get offer from database
-            $offer = $this->offerModel->getOfferById($offer_id);
+            // if no id is given return to overview
+            if(!empty($offer_id)){
 
-            // get company by id
-            $comp = $this->compModel->getCompById($offer->comp_id);
+                // get offer from database
+                $offer = $this->offerModel->getOfferById($offer_id);
 
-            //if there is a result show view else return to overview
-            if (!empty($offer)){
-                $data = [
-                    'offer'=>$offer,
-                    'comp'=>$comp
-                ];
+                // get company by id
+                $comp = $this->compModel->getCompById($offer->comp_id);
 
-                $this->view('Offers/show', $data);
-            }else{
+                //if there is a result show view else return to overview
+                if (!empty($offer)){
+                    $data = [
+                        'offer'=>$offer,
+                        'comp'=>$comp
+                    ];
+
+                    $this->view('Offers/show', $data);
+                }else{
+                    $this->dashboard();
+                }
+
+            }else {
                 $this->dashboard();
             }
-
-
-
-        }else {
-            $this->dashboard();
+        }else{
+            redirect("Users/login");
         }
+
+
 
     }
 
     public function add(){
+
+        // redirect if user is not logged in
+        if(!comp_isLoggedIn()){
+            redirect("Pages/index");
+        }
 
         // check for POST
         if ($_SERVER["REQUEST_METHOD"] == 'POST') {
@@ -133,6 +147,11 @@ class Offers extends Controller{
     }
 
     public function edit($offer_id){
+
+        // redirect if user is not logged in
+        if(!comp_isLoggedIn()){
+            redirect("Pages/index");
+        }
 
         //get offer from database
         $offer = $this->offerModel->getOfferById($offer_id);
@@ -208,6 +227,11 @@ class Offers extends Controller{
     }
 
     public function delete($offer_id){
+
+        // redirect if user is not logged in
+        if(!comp_isLoggedIn()){
+            redirect("Pages/index");
+        }
 
         //get offer from database
         $offer = $this->offerModel->getOfferById($offer_id);
