@@ -17,13 +17,13 @@ $offers = $data['offers'];
     <h1 class="mb-5">Welkom <?php echo ucwords($_SESSION['comp_username']) ?></h1>
 <div class="row mb-3">
     <a href="<?php echo URLROOT . "Offers/add"; ?>">
-        <button type="button" class="btn btn-success">
+        <button type="button" class="btn btn-success shadow-sm">
             <i class="fa fa-pencil"></i> Nieuwe vacature
         </button>
     </a>
 </div>
     <h2>Geplaatste vacatures</h2>
-    <table class="table table-striped table-hover text-center">
+    <table class="table table-striped table-hover text-center border shadow-sm">
         <thead class="thead-dark">
         <tr>
             <th scope="col">Titel</th>

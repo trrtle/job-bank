@@ -14,7 +14,7 @@ require APPROOT . "/views/inc/header.php"
 /** @var array $data */
 ?>
 <div class="jumbo-index-background">
-    <div class="jumbotron jumbo-index text-center">
+    <div class="jumbotron jumbo-index text-center ">
         <h1 class="display-4">Power Jobs</h1>
         <p class="lead">Generieke slogan die helemaal nergens opslaat</p>
     </div>
