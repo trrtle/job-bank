@@ -14,13 +14,20 @@
 class Users extends Controller {
 
         private $userModel;
+        private $offerModel;
 
     public function __construct(){
         $this->userModel = $this->model("User");
+        $this->offerModel = $this->model("Offer");
     }
 
     // default page
     public function index(){
+
+        $this->dashboard();
+    }
+
+    public function dashboard(){
 
         if(!isLoggedIn()){
             redirect("users/login");
@@ -29,7 +36,7 @@ class Users extends Controller {
         $data = [
 
         ];
-        $this->view('Users/index', $data);
+        $this->view('Users/dashboard', $data);
     }
 
     // user registration
@@ -398,7 +405,7 @@ class Users extends Controller {
         $_SESSION['id'] = $user->id;
         $_SESSION['email'] = $user->email;
         $_SESSION['username'] = $user->username;
-        redirect('Users/index');
+        redirect('Users/dashboard');
     }
 
     public function logout(){

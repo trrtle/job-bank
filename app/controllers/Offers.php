@@ -16,11 +16,7 @@ class Offers extends Controller{
     //default
     public function index(){
 
-        $data = [
-
-        ];
-
-        $this->view('Pages/index', $data);
+        $this->dashboard();
     }
 
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * users/index.php
+ * users/dashboard.php
  *
  * @package    TurtleMVC-Core
  * @license    https://opensource.org/licenses/BSD-3-Clause

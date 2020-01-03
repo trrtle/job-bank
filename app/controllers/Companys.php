@@ -11,11 +11,7 @@ class Companys extends Controller{
     //default
     public function index(){
 
-        $data = [
-
-        ];
-
-        $this->view('Pages/index', $data);
+        redirect("Offers/dashboard");
     }
 
 
