@@ -23,7 +23,7 @@ $offers = $data['offers'];
     </a>
 </div>
     <h2>Geplaatste vacatures</h2>
-    <table class="table table-striped table-hover">
+    <table class="table table-striped table-hover text-center">
         <thead class="thead-dark">
         <tr>
             <th scope="col">Titel</th>

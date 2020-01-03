@@ -10,14 +10,18 @@
 
 class Pages extends Controller{
 
-    public function __construct(){
+    private $offerModel;
 
+    public function __construct(){
+        $this->offerModel = $this->model("Offer");
     }
 
     public function index(){
 
+        $latestOffers = $this->offerModel->getLatestOffers(3);
+
         $data = [
-            "title"=>"TurtleMVC"
+            "latestOffers"=>$latestOffers
         ];
         $this->view('/Pages/index', $data);
     }

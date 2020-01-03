@@ -9,7 +9,7 @@
  * @uses bootstrap4
  */
 ?>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3 shadow-sm">
     <div class="container">
         <a class="navbar-brand" href="<?php echo URLROOT;?>">
             <?php echo SITENAME;?>

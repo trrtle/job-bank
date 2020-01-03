@@ -75,4 +75,11 @@ class Offer {
             return false;
         }
     }
+
+    public function getLatestOffers($amount){
+        $sql = "SELECT * FROM `offers` order by offer_date DESC LIMIT :amount";
+        $this->db->query($sql);
+        $this->db->bind(":amount", $amount);
+        return $this->db->resultSet();
+    }
 }
