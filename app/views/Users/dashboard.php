@@ -22,20 +22,23 @@ require APPROOT . "/views/inc/header.php";
         <h2 class="mb-3">Nieuwste Vacatures</h2>
     </div>
 </div>
-<div class="row row-cols-lg-3 mb-3 text-center">
+<div class="row mb-3 card-deck text-center">
     <?php foreach ($data["latestOffers"] as $offers=>$offer): ?>
-    <div class="col-lg-4">
-        <div class="card shadow-sm">
+        <div class="card mb-4 shadow-sm">
             <h5 class="card-header"><?php echo $offer->offer_title ?></h5>
-            <div class="card-body">
+            <div class="card-body d-flex flex-column ">
                 <p class="card-text"><?php echo substr($offer->offer_desc, 0, 200) ?>....</p>
-                <a href="<?php echo URLROOT . "Offers/show/" . $offer->offer_id ?>" class="btn btn-block btn-outline-primary">Lees meer</a>
+                <a href="<?php echo URLROOT . "Offers/show/" . $offer->offer_id ?>" class="btn btn-block btn-outline-primary mt-auto">Lees meer</a>
             </div>
         </div>
-    </div>
-
     <?php endforeach; ?>
 </div>
+<div class="row">
+    <div class="col">
+        <button class="btn btn-primary btn-lg">Alle vacatures</button>
+    </div>
+</div>
+<div class="row
 
 
 <?php require APPROOT . "/views/inc/footer.php"?>

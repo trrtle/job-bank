@@ -34,7 +34,7 @@ class Users extends Controller {
         }
 
         $user = $this->userModel->findUserById($_SESSION['id']);
-        $latestOffers = $this->offerModel->getLatestOffers(9);
+        $latestOffers = $this->offerModel->getLatestOffers(3);
         $data = [
             'user'=>$user,
             'latestOffers'=> $latestOffers

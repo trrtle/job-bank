@@ -25,16 +25,16 @@ require APPROOT . "/views/inc/header.php"
         <h1 class="mb-4">Laatste vacatures</h1>
     </div>
 </div>
-<div class="row-3 mb-3 card-deck text-center">
-        <?php foreach ($data["latestOffers"] as $offers=>$offer): ?>
-            <div class="card shadow-sm">
-                <h5 class="card-header"><?php echo $offer->offer_title ?></h5>
-                <div class="card-body">
-                    <p class="card-text"><?php echo substr($offer->offer_desc, 0, 200) ?>....</p>
-                    <a href="<?php echo URLROOT . "Offers/show/" . $offer->offer_id ?>" class="btn btn-block btn-outline-primary">Lees meer</a>
-                </div>
+<div class="row mb-3 card-deck text-center">
+    <?php foreach ($data["latestOffers"] as $offers=>$offer): ?>
+        <div class="card shadow-sm">
+            <h5 class="card-header"><?php echo $offer->offer_title ?></h5>
+            <div class="card-body">
+                <p class="card-text"><?php echo substr($offer->offer_desc, 0, 200) ?>....</p>
+                <a href="<?php echo URLROOT . "Offers/show/" . $offer->offer_id ?>" class="btn btn-block btn-outline-primary">Lees meer</a>
             </div>
-        <?php endforeach; ?>
+        </div>
+    <?php endforeach; ?>
 </div>
 
 
