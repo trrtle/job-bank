@@ -77,9 +77,15 @@ class Offer {
     }
 
     public function getLatestOffers($amount){
-        $sql = "SELECT * FROM `offers` order by offer_date DESC LIMIT :amount";
+        $sql = "SELECT * FROM `offers` WHERE offer_title IS NOT NULL order by offer_date DESC LIMIT :amount";
         $this->db->query($sql);
         $this->db->bind(":amount", $amount);
+        return $this->db->resultSet();
+    }
+
+    public function getAllOffers(){
+        $sql = "SELECT * FROM `offers` order by offer_date DESC";
+        $this->db->query($sql);
         return $this->db->resultSet();
     }
 }

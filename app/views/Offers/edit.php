@@ -16,7 +16,7 @@ require APPROOT . "/views/inc/header.php";
     <h1>Nieuwe vacature</h1>
 </div>
 <div class="row mb-3">
-    <a href="<?php echo URLROOT . "Offers/dashboard" ?>">
+    <a href="<?php echo URLROOT . "Companys/dashboard" ?>">
         <button type="button" class="btn btn-danger"><i class="fa fa-arrow-left">
             </i> Terug</button>
     </a>

@@ -31,6 +31,9 @@
             <ul class="navbar-nav ml-auto">
                 <?php if(user_isLoggedIn()): ?>
                     <li class="nav-item">
+                        <a class="nav-link" href="<?php echo URLROOT . "Users/dashboard";?>">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="<?php echo URLROOT . "users/profile/" . $_SESSION["username"];?>">Profiel</a>
                     </li>
                     <li class="nav-item">
@@ -43,7 +46,7 @@
                     </li>
                 <?php elseif(comp_isLoggedIn()):?>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo URLROOT . "offers/dashboard";?>">Dashboard</a>
+                        <a class="nav-link" href="<?php echo URLROOT . "Companys/dashboard";?>">Dashboard</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo URLROOT . "companys/profile/" . $_SESSION["comp_username"];?>">Profiel</a>

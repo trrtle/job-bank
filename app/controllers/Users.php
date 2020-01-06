@@ -33,8 +33,11 @@ class Users extends Controller {
             redirect("users/login");
         }
 
+        $user = $this->userModel->findUserById($_SESSION['id']);
+        $latestOffers = $this->offerModel->getLatestOffers(9);
         $data = [
-
+            'user'=>$user,
+            'latestOffers'=> $latestOffers
         ];
         $this->view('Users/dashboard', $data);
     }

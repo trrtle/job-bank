@@ -16,24 +16,9 @@ class Offers extends Controller{
     //default
     public function index(){
 
-        $this->dashboard();
+        redirect("Companys/dashboard");
     }
 
-
-    public function dashboard(){
-
-        // redirect if user is not logged in
-        if(!comp_isLoggedIn()){
-            redirect("Pages/index");
-        }
-
-        $result = $this->offerModel->getAllOffersByCompId($_SESSION['comp_id']);
-        $data = [
-            'offers'=>$result
-        ];
-
-        $this->view('Offers/dashboard', $data);
-    }
 
     public function show($offer_id = ''){
 
@@ -58,11 +43,11 @@ class Offers extends Controller{
 
                     $this->view('Offers/show', $data);
                 }else{
-                    $this->dashboard();
+                    $this->index();
                 }
 
             }else {
-                $this->dashboard();
+                $this->index();
             }
         }else{
             redirect("Users/login");
@@ -113,7 +98,7 @@ class Offers extends Controller{
             if(empty($data['title_err']) && empty($data['desc_err']) && empty($data['tags_err'])){
                 // add vacature
                 if($this->offerModel->addOffer($data['offer_title'], $data['offer_desc'], $data['offer_tags'])){
-                    redirect('Offers/dashboard');
+                    redirect('Companys/dashboard');
                     $_SESSION['flash'] = new Flash("Vacature toegevoegd");
                 }else{
                     redirect('Offers/add');
@@ -154,7 +139,7 @@ class Offers extends Controller{
 
         // if offer is not from the logged in company redirect to dashboard
         if($offer->comp_id != $_SESSION["comp_id"]){
-            redirect('Offers/dashboard');
+            redirect('Companys/dashboard');
         }
 
         // check for POST
@@ -191,15 +176,15 @@ class Offers extends Controller{
             if(empty($data['title_err']) && empty($data['desc_err']) && empty($data['tags_err'])){
                 // update offer
                 if($this->offerModel->updateOffer($offer_id, $_POST['offer_title'], $_POST['offer_desc'], $_POST['offer_tags'])){
-                    redirect('Offers/dashboard');
+                    redirect('Companys/dashboard');
                     $_SESSION['flash'] = new Flash("Vacature is gewijzigd");
                 }else{
-                    redirect('Offers/dashboard');
+                    redirect('Companys/dashboard');
                     $_SESSION['flash'] = new Flash("Er is iets fout gegaan", "alert alert-danger");
                 }
             }
             else{
-                redirect('Offers/dashboard');
+                redirect('Companys/dashboard');
                 $_SESSION['flash'] = new Flash("Vacature niet gewijzigd, velden mogen niet leeg zijn!", "alert alert-danger");
             }
 
@@ -238,7 +223,7 @@ class Offers extends Controller{
         }
 
         if($this->offerModel->deleteOffer($offer_id)){
-            redirect('Offers/dashboard');
+            redirect('Companys/dashboard');
             $_SESSION['flash'] = new Flash("Vacature is verwijderd");
         }
 

@@ -3,15 +3,32 @@
 class Companys extends Controller{
 
     private $compModel;
+    private $offerModel;
 
     public function __construct(){
         $this->compModel = $this->model("Company");
+        $this->offerModel = $this->model("Offer");
     }
 
     //default
     public function index(){
 
-        redirect("Offers/dashboard");
+        $this->dashboard();
+    }
+
+    public function dashboard(){
+
+        // redirect if user is not logged in
+        if(!comp_isLoggedIn()){
+            redirect("Pages/index");
+        }
+
+        $result = $this->offerModel->getAllOffersByCompId($_SESSION['comp_id']);
+        $data = [
+            'offers'=>$result
+        ];
+
+        $this->view('Companys/dashboard', $data);
     }
 
 
@@ -290,13 +307,13 @@ class Companys extends Controller{
         unset($_SESSION['comp_id']);
         unset($_SESSION['comp_email']);
         unset($_SESSION['comp_username']);
-        redirect("Pages/index");
+        redirect("Companys/login");
     }
 
     public function createCompSession($user){
         $_SESSION['comp_id'] = $user->comp_id;
         $_SESSION['comp_email'] = $user->comp_email;
         $_SESSION['comp_username'] = $user->comp_username;
-        redirect('Offers/dashboard');
+        redirect('Companys/dashboard');
     }
 }
