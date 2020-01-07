@@ -38,7 +38,6 @@ require APPROOT . "/views/inc/header.php";
         <a href="<?php echo URLROOT ?>/Offers/showall"><button class="btn btn-primary btn-lg">Alle vacatures</button></a>
     </div>
 </div>
-<div class="row
 
 
 <?php require APPROOT . "/views/inc/footer.php"?>

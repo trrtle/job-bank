@@ -32,3 +32,12 @@ td a:hover{
     background-size: cover; /* Resize the background image to cover the entire container */
     background-position: bottom;
 }
+main{
+    min-height:100vh
+}
+
+footer{
+    background-color: #343A40;
+    padding: 20px;
+    color: #F7F7F7;
+}
