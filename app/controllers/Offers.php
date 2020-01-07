@@ -53,8 +53,16 @@ class Offers extends Controller{
             redirect("Users/login");
         }
 
+    }
 
+    public function showAll(){
 
+        $offers = $this->offerModel->getAllOffers();
+        $data  =[
+            'offers'=>$offers
+        ];
+
+        $this->view("Offers/showall", $data);
     }
 
     public function add(){

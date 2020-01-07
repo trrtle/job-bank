@@ -26,7 +26,7 @@ require APPROOT . "/views/inc/header.php";
     <?php foreach ($data["latestOffers"] as $offers=>$offer): ?>
         <div class="card mb-4 shadow-sm">
             <h5 class="card-header"><?php echo $offer->offer_title ?></h5>
-            <div class="card-body d-flex flex-column ">
+            <div class="card-body d-flex flex-column">
                 <p class="card-text"><?php echo substr($offer->offer_desc, 0, 200) ?>....</p>
                 <a href="<?php echo URLROOT . "Offers/show/" . $offer->offer_id ?>" class="btn btn-block btn-outline-primary mt-auto">Lees meer</a>
             </div>
@@ -35,7 +35,7 @@ require APPROOT . "/views/inc/header.php";
 </div>
 <div class="row">
     <div class="col">
-        <button class="btn btn-primary btn-lg">Alle vacatures</button>
+        <a href="<?php echo URLROOT ?>/Offers/showall"><button class="btn btn-primary btn-lg">Alle vacatures</button></a>
     </div>
 </div>
 <div class="row

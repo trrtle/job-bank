@@ -61,10 +61,10 @@
                     </li>
                 <?php else: ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo URLROOT . "users/login";?>">Sollicitant</a>
+                    <a class="nav-link" href="<?php echo URLROOT . "users/login";?>">Werkzoekend</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo URLROOT . "Companys/login";?>">Bedrijf</a>
+                    <a class="nav-link" href="<?php echo URLROOT . "Companys/login";?>">Werkgevers</a>
                 </li>
                 <?php endif; ?>
             </ul>

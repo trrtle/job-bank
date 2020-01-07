@@ -29,9 +29,9 @@ require APPROOT . "/views/inc/header.php"
     <?php foreach ($data["latestOffers"] as $offers=>$offer): ?>
         <div class="card shadow-sm">
             <h5 class="card-header"><?php echo $offer->offer_title ?></h5>
-            <div class="card-body">
+            <div class="card-body d-flex flex-column">
                 <p class="card-text"><?php echo substr($offer->offer_desc, 0, 200) ?>....</p>
-                <a href="<?php echo URLROOT . "Offers/show/" . $offer->offer_id ?>" class="btn btn-block btn-outline-primary">Lees meer</a>
+                <a href="<?php echo URLROOT . "Offers/show/" . $offer->offer_id ?>" class="btn btn-block btn-outline-primary mt-auto">Lees meer</a>
             </div>
         </div>
     <?php endforeach; ?>
