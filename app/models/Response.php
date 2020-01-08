@@ -21,4 +21,11 @@ class Response{
         }
     }
 
+    public function getAllRespsByUserId($user_id){
+        $sql = "SELECT * FROM response WHERE user_id = :user_id";
+        $this->db->query($sql);
+        $this->db->bind(":user_id", $user_id);
+        return $this->db->resultSet();
+    }
+
 }

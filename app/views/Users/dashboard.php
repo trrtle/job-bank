@@ -38,6 +38,33 @@ require APPROOT . "/views/inc/header.php";
         <a href="<?php echo URLROOT ?>/Offers/showall"><button class="btn btn-primary btn-lg">Alle vacatures</button></a>
     </div>
 </div>
+<hr>
+<div class="row">
+    <div class="col">
+        <h2>Sollicitatie historie</h2>
+    </div>
+</div>
+<div class="row">
+<div class="col">
+    <table class="table table-striped table-hover text-center border shadow-sm">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Titel</th>
+            <th scope="col">Geplaatste datum</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach($data['resps'] as $resps=>$resp): ?>
+            <tr>
+                <td>
+                    <?php echo $resp->resp_text ?>
+                </td>
+            </tr>
+        <?php endforeach;?>
+        </tbody>
+    </table>
+</div>
+</div>
 
 
 <?php require APPROOT . "/views/inc/footer.php"?>

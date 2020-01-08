@@ -31,16 +31,29 @@ class Responses extends Controller{
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-            if(empty($_POST["response_text"])){
+            if(empty($_POST["resp_text"])){
 
                 $data = [
                     "text_err"=>"Veld mag niet leeg zijn",
                     'offer'=>$offer
                 ];
 
-                $this->view("Responses/add", $data);
-            }
 
+                $this->view("Responses/add", $data);
+            }else{
+                $data = [
+                    'offer'=>$offer
+                ];
+
+                if($this->respModel->addResponse($offer_id, $_POST['resp_text'], $_SESSION['id'])){
+                    redirect("offers/show/" . $offer_id);
+                    $_SESSION['flash'] = new Flash('Reactie is verstuurd!');
+
+                }else{
+                    redirect("offers/show/" . $offer_id);
+                    $_SESSION['flash'] = new Flash('Er is iets fout gegaan.', 'alert alert-danger');
+                }
+            }
 
 
         }else{

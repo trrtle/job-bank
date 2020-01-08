@@ -19,6 +19,7 @@ class Users extends Controller {
     public function __construct(){
         $this->userModel = $this->model("User");
         $this->offerModel = $this->model("Offer");
+        $this->respModel = $this->model("Response");
     }
 
     // default page
@@ -35,9 +36,12 @@ class Users extends Controller {
 
         $user = $this->userModel->findUserById($_SESSION['id']);
         $latestOffers = $this->offerModel->getLatestOffers(3);
+        $resps = $this->respModel->getAllRespsByUserId($_SESSION['id']);
+
         $data = [
             'user'=>$user,
-            'latestOffers'=> $latestOffers
+            'latestOffers'=> $latestOffers,
+            'resps'=>$resps
         ];
         $this->view('Users/dashboard', $data);
     }

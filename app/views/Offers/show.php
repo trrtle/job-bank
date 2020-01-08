@@ -12,6 +12,7 @@
 require APPROOT . "/views/inc/header.php";
 /** @var array $data */
 ?>
+<?php if(!empty($_SESSION['flash'])) {$_SESSION['flash']->show(); unset($_SESSION['flash']);}?>
 <div class="jumbotron mb-5 text-center">
     <h1 class="display-4"><?php echo $data['offer']->offer_title?></h1>
     <a href="<?php echo URLROOT . "companys/profile/" . $data['comp']->comp_username ;?>">
