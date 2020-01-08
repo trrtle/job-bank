@@ -23,7 +23,7 @@ require APPROOT . "/views/inc/header.php";
     <div class="col">
         <?php echo $data['offer']->offer_desc; ?>
         <hr>
-        <div ><a class="btn btn-primary btn-lg" href="<?php echo URLROOT . "Responses/add/" . $data['offer']->offer_id?>" role="button">Solliciteer nu!</a></div>
+        <div ><a class="btn btn-success btn-lg" href="<?php echo URLROOT . "Responses/add/" . $data['offer']->offer_id?>" role="button">Solliciteer nu!</a></div>
     </div>
 </div>
 

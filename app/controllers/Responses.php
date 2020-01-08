@@ -31,14 +31,29 @@ class Responses extends Controller{
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
+            if(empty($_POST["response_text"])){
 
+                $data = [
+                    "text_err"=>"Veld mag niet leeg zijn",
+                    'offer'=>$offer
+                ];
+
+                $this->view("Responses/add", $data);
+            }
+
+
+
+        }else{
+
+            $data =[
+            'text_err'=>'',
+            'offer'=>$offer
+            ];
+
+            $this->view("Responses/add" , $data);
         }
 
-        $data =[
 
-        ];
-
-        $this->view("Responses/add", $data);
 
     }
 

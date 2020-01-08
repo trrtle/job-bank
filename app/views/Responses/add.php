@@ -5,16 +5,21 @@ require APPROOT . "/views/inc/header.php";
 
 <div class="row mb-5">
     <div class="col">
-        <h1>Reageren op de vacature <?php echo $data['offer']->offer_id ?></h1>
+        <h1>Reageren op de vacature: <?php echo $data['offer']->offer_title ?></h1>
     </div>
 </div>
-<form>
+<form action="<?php echo URLROOT . "Responses/add/" . $data["offer"]->offer_id?>" method="POST">
     <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <label for="response_text">
+            Vertel iets over jezelf en je motivatie
+        </label>
+<textarea name="response_text"
+          class="form-control <?php echo (!empty($data['text_err'])) ? 'is-invalid' : ''; ?>"
+          rows="5">
+</textarea>
+        <span class="invalid-feedback"><?php echo $data['text_err']; ?></span>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-success">Versturen</button>
 </form>
 <?php print_r($data['post'])?>
 <?php require APPROOT . "/views/inc/footer.php" ?>
