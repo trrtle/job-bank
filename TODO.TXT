@@ -1,3 +1,7 @@
+// TODO veiliger sessie beheer
+// TODO captcha
+// TODO wachtwoord vergeten
 // TODO sql format text
 // TODO voeg filter toe aan vacatures
+// TODO zoek functie
 // TODO aap randstad na
