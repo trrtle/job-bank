@@ -10,7 +10,7 @@
  */
 ?>
 </main> <!-- end of container -->
-<footer class="footer">
+<footer class="footer mt-5">
     <div class="container text-center">
         <span><i class="fa fa-copyright"></i> 2020 Micky Aarnoudse</span>
     </div>

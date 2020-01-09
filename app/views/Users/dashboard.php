@@ -57,7 +57,10 @@ require APPROOT . "/views/inc/header.php";
         <?php foreach($data['resps'] as $resps=>$resp): ?>
             <tr>
                 <td>
-                    <?php echo $resp->resp_text ?>
+                    <?php echo $resp->offer_title ?>
+                </td>
+                <td>
+                    <?php echo $resp->resp_date ?>
                 </td>
             </tr>
         <?php endforeach;?>
