@@ -6,8 +6,11 @@ class Companys extends Controller{
     private $offerModel;
 
     public function __construct(){
+
+        // set models
         $this->compModel = $this->model("Company");
         $this->offerModel = $this->model("Offer");
+        $this->respModel = $this->model("Response");
     }
 
     //default
@@ -23,9 +26,12 @@ class Companys extends Controller{
             redirect("Pages/index");
         }
 
-        $result = $this->offerModel->getAllOffersByCompId($_SESSION['comp_id']);
+        $offers = $this->offerModel->getAllOffersByCompId($_SESSION['comp_id']);
+        $respCount = $this->respModel->countRespOnOffer();
+
         $data = [
-            'offers'=>$result
+            'offers'=>$offers,
+            'respCount'=>$respCount
         ];
 
         $this->view('Companys/dashboard', $data);

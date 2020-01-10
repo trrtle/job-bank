@@ -33,18 +33,19 @@ require APPROOT . "/views/inc/header.php";
         </div>
     <?php endforeach; ?>
 </div>
-<div class="row">
+<div class="row mb-5">
     <div class="col">
         <a href="<?php echo URLROOT ?>/Offers/showall"><button class="btn btn-primary btn-lg">Alle vacatures</button></a>
+        <hr >
     </div>
 </div>
-<hr>
-<div class="row">
+
+<div class="row mb-3">
     <div class="col">
         <h2>Sollicitatie historie</h2>
     </div>
 </div>
-<div class="row">
+<div class="row mb-5">
 <div class="col">
     <table class="table table-striped table-hover text-center border shadow-sm">
         <thead class="thead-dark">
@@ -57,10 +58,14 @@ require APPROOT . "/views/inc/header.php";
         <?php foreach($data['resps'] as $resps=>$resp): ?>
             <tr>
                 <td>
+                    <a href="<?php echo  URLROOT . "Responses/show/" . $resp->resp_id;?>">
                     <?php echo $resp->offer_title ?>
+                    </a>
                 </td>
                 <td>
+                    <a href="<?php echo  URLROOT . "Responses/show/" . $resp->resp_id;?>">
                     <?php echo $resp->resp_date ?>
+                    </a>
                 </td>
             </tr>
         <?php endforeach;?>

@@ -66,8 +66,18 @@ class Responses extends Controller{
             $this->view("Responses/add" , $data);
         }
 
+    }
 
+    public function show($resp_id){
 
+        $resp = $this->respModel->getRespById($resp_id);
+
+        $data =[
+
+            'resp'=>$resp
+        ];
+
+        $this->view("Responses/show" , $data);
     }
 
 }
