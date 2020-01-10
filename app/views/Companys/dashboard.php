@@ -61,7 +61,7 @@ $offers = $data['offers'];
                         </a>
                     </td>
                     <td>
-                        <a href="<?php echo URLROOT . "/Offers/showResponses/ " . $offer->offer_id ?>">
+                        <a href="<?php echo URLROOT . "Offers/showResponses/ " . $offer->offer_id ?>">
                             <?php echo $offer->resps ?>
                         </a>
                     </td>

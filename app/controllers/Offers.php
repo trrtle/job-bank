@@ -227,7 +227,7 @@ class Offers extends Controller{
 
         // if offer is not from the logged in company redirect to dashboard
         if($offer->comp_id != $_SESSION["comp_id"]){
-            redirect('Offers/das;hboard');
+            redirect('Offers/dashboard');
         }
 
         if($this->offerModel->deleteOffer($offer_id)){
@@ -235,5 +235,13 @@ class Offers extends Controller{
             $_SESSION['flash'] = new Flash("Vacature is verwijderd");
         }
 
+    }
+
+    public function showResponses($offer_id = ''){
+        $data = [
+
+        ];
+
+        $this->view("Offers/showresponses", $data);
     }
 }
