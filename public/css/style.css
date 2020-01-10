@@ -19,8 +19,8 @@ td a {
 
 }
 td a:hover{
-    text-decoration: none;
-    color: black;
+    /*text-decoration: none;*/
+    /*color: black;*/
 }
 
 .jumbo-index{
@@ -45,3 +45,4 @@ footer{
 .hiddenRow {
     padding: 0 !important;
 }
+
