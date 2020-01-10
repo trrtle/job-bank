@@ -41,12 +41,22 @@ class Response{
         return $this->db->resultRow();
     }
 
-    public function countRespOnOffer($offer_id){
-        $sql = "SELECT * FROM response WHERE offer_id = :offer_id";
+    public function getRespsByOffer($offer_id){
+        $sql = "SELECT R.*, O.offer_title, O.offer_date, U.firstname, U.lastname, U.username
+                FROM response as R JOIN offers as O ON R.offer_id=O.offer_id JOIN users as U ON R.user_id=U.id
+                WHERE R.offer_id = :offer_id";
         $this->db->query($sql);
         $this->db->bind(":offer_id", $offer_id);
-        return $this->db->rowCount();
+        return $this->db->resultSet();
     }
+
+
+//    public function countRespOnOffer($offer_id){
+//        $sql = "SELECT * FROM response WHERE offer_id = :offer_id";
+//        $this->db->query($sql);
+//        $this->db->bind(":offer_id", $offer_id);
+//        return $this->db->rowCount();
+//    }
 
 
 }

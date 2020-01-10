@@ -4,6 +4,7 @@ class Offers extends Controller{
 
     private $offerModel;
     private $compModel;
+    private $respModel;
 
     public function __construct()
     {
@@ -11,6 +12,7 @@ class Offers extends Controller{
         // set current model
         $this->offerModel = $this->model("Offer");
         $this->compModel = $this->model("Company");
+        $this->respModel = $this->model("Response");
     }
 
     //default
@@ -238,8 +240,13 @@ class Offers extends Controller{
     }
 
     public function showResponses($offer_id = ''){
-        $data = [
 
+        $resps = $this->respModel->getRespsByOffer($offer_id);
+        $offer = $this->offerModel->getOfferById($offer_id);
+
+        $data = [
+            'resps'=>$resps,
+            'offer'=>$offer
         ];
 
         $this->view("Offers/showresponses", $data);

@@ -2,27 +2,41 @@
 require APPROOT . "/views/inc/header.php";
 /** @var array $data */
 ?>
-    <div class="row mb-5">
-        <div class="col">
-            <h1>Vacatures</h1>
-        </div>
+<div class="row mb-3">
+    <div class="col">
+        <h1>Reacties op de vacature: <?php echo $data['offer']->offer_title?></h1>
     </div>
-    <div class="row mb-3">
-        <div class="col">
-            <h5>Filter</h5>
-        </div>
+</div>
+
+<div class="row mb-5">
+    <div class="col">
+        <table class="table table-striped table-hover text-center border shadow-sm">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Sollicitant</th>
+                <th scope="col">Datum</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach($data['resps'] as $resps=>$resp): ?>
+                <tr>
+                    <td>
+                        <a href="<?php echo  URLROOT . "Responses/show/" . $resp->resp_id;?>">
+                            <?php echo $resp->firstname . ' ' . $resp->lastname ?>
+                        </a>
+                    </td>
+                    </a>
+                    <td>
+                        <a href="<?php echo  URLROOT . "Responses/show/" . $resp->resp_id;?>">
+                            <?php echo $resp->resp_date?>
+                        </a>
+                    </td>
+                </tr>
+            <?php endforeach;?>
+            </tbody>
+        </table>
+        <hr class="mt-5">
     </div>
-    <hr>
+</div>
 
-
-<?php foreach($data['offers'] as $offers=>$offer): ?>
-    <div class="card mb-3 shadow-sm">
-        <div class="card-body">
-            <h5 class="card-title"><?php echo $offer->offer_title?></h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="<?php echo URLROOT . "Offers/show/" . $offer->offer_id ?>" class="card-link">Lees meer</a>
-        </div>
-    </div>
-
-<?php endforeach; ?>
 <?php require APPROOT . "/views/inc/footer.php" ?>
