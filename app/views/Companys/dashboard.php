@@ -62,7 +62,7 @@ $offers = $data['offers'];
                     </td>
                     <td>
                         <a href="#">
-                            <?php echo $data['respCount'] ?>
+                            <?php echo $offer->resps ?>
                         </a>
                     </td>
                     <td>

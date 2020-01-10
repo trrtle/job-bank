@@ -9,7 +9,12 @@ class Offer {
     }
 
     public function getAllOffersByCompId($id){
-        $sql = "select * from offers WHERE comp_id = :id ORDER BY offer_date DESC";
+        $sql = "select O.*, count(R.resp_id) as resps
+                from offers O LEFT JOIN response R ON O.offer_id = R.offer_id 
+                WHERE O.comp_id = :id
+                GROUP BY O.offer_id 
+                ORDER BY O.offer_date DESC";
+
         $this->db->query($sql);
         $this->db->bind(":id", $id);
         return $this->db->resultSet();

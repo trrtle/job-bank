@@ -27,11 +27,9 @@ class Companys extends Controller{
         }
 
         $offers = $this->offerModel->getAllOffersByCompId($_SESSION['comp_id']);
-        $respCount = $this->respModel->countRespOnOffer();
 
         $data = [
             'offers'=>$offers,
-            'respCount'=>$respCount
         ];
 
         $this->view('Companys/dashboard', $data);
