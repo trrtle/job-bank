@@ -10,8 +10,9 @@
  * @copyright  2020 Micky Aarnoudse
  */
 
+// start and generate a new session id
 session_start();
-
+session_regenerate_id(true);
 
 /**
  * Flash class
