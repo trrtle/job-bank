@@ -1,5 +1,3 @@
-// TODO tel met een subquery het aantal reacties bij getAllOffersByCompId()
-// TODO als bedrijf reageren op een vacature geeft een error
 // TODO offers showall laat ook vacatures zien die leeg zijn.
 // TODO Verwijder bij offers ook het id
 

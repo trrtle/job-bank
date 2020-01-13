@@ -17,7 +17,6 @@ require APPROOT . "/views/inc/header.php";
     <div class="card mb-3 shadow-sm">
         <div class="card-body">
             <h5 class="card-title"><?php echo $offer->offer_title?></h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
             <a href="<?php echo URLROOT . "Offers/show/" . $offer->offer_id ?>" class="card-link">Lees meer</a>
         </div>
     </div>

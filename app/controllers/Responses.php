@@ -22,6 +22,12 @@ class Responses extends Controller{
             redirect("Pages/index");
         }
 
+        if(comp_isLoggedIn()){
+            redirect("offers/show/" . $offer_id);
+            $_SESSION['flash'] = new Flash('Als bedrijf kun je niet reageren op een vacature',
+                'alert alert-danger');
+        }
+
         $offer = $this->offerModel->getOfferById($offer_id);
 
         // check for POST
