@@ -90,7 +90,7 @@ class Offer {
     }
 
     public function getAllOffers(){
-        $sql = "SELECT * FROM `offers` order by offer_date DESC";
+        $sql = "SELECT * FROM `offers` WHERE comp_id IS NOT NULL order by offer_date DESC ";
         $this->db->query($sql);
         return $this->db->resultSet();
     }
