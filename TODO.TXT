@@ -1,5 +1,4 @@
 // TODO offers showall laat ook vacatures zien die leeg zijn.
-// TODO Verwijder bij offers ook het id
 
 // TODO veiliger sessie beheer
 // TODO captcha

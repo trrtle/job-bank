@@ -36,6 +36,10 @@ class Offers extends Controller{
                 // get company by id
                 $comp = $this->compModel->getCompById($offer->comp_id);
 
+                if (empty($comp)){
+                    redirect("Pages/index");
+                }
+
                 //if there is a result show view else return to overview
                 if (!empty($offer)){
                     $data = [

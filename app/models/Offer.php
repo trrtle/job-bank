@@ -64,6 +64,7 @@ class Offer {
 
     public function deleteOffer($offer_id){
        $sql = "UPDATE offers SET 
+        offer_id = NULL,
         comp_id = NULL, 
         offer_title = NULL, 
         offer_desc = NULL, 
