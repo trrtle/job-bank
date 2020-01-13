@@ -1,4 +1,3 @@
-// TODO veiliger sessie beheer
 // TODO captcha
 // TODO wachtwoord vergeten
 

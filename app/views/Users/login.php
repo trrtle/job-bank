@@ -32,6 +32,11 @@ require APPROOT . "/views/inc/header.php"
                     <?php echo (!empty($data['secret_err'])) ? 'is-invalid' : ''; ?>" value="">
                         <span class="invalid-feedback"><?php echo $data['secret_err']; ?></span>
                     </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <div class="g-recaptcha" data-sitekey="6LdE4c4UAAAAACrE2_IoTA6cO48on4-WptN9Dbor"></div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col">
                             <button type="submit" class="btn btn-success btn-block">Login</button>
