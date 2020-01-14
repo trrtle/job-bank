@@ -11,6 +11,7 @@
 
 require APPROOT . "/views/inc/header.php";
 /** @var array $data */
+
 ?>
 <div class="row mb-5">
     <div class="col">

@@ -158,18 +158,35 @@ class Users extends Controller {
             // check if errors are empty
             if(empty($data['username_err']) && empty($data['secret_err'])){
 
-                // try logging in
-                $loggedInUser = $this->userModel->login($data['username'], $data['secret']);
+                // Captcha check
+                $key = '6LdE4c4UAAAAAKPxkgrCAN7SM1OuFsx1lSZStsA5';
+                $reCaptcha = new \ReCaptcha\ReCaptcha($key);
+                $response = null;
 
-                if($loggedInUser){
+                if($_POST["g-recaptcha-response"]){
+                    $response = $reCaptcha->verify($_SERVER['REMOTE_ADDR'],
+                    $_POST['g-recaptcha-response']);
+                };
 
-                    $this->createUserSession($loggedInUser);
+                // if captcha is clicked
+                if ($response != null){
+                    // try logging in
+                    $loggedInUser = $this->userModel->login($data['username'], $data['secret']);
 
+                    if($loggedInUser){
+
+                        $this->createUserSession($loggedInUser);
+
+                    }else{
+
+                        // if password or username is incorrect load login with errors.
+                        $data['username_err'] = 'Credentials are incorrect';
+                        $data['secret_err'] = 'Credentials are incorrect';
+                        $this->view('/Users/login', $data);
+                    }
                 }else{
 
-                    // if password or username is incorrect load login with errors.
-                    $data['username_err'] = 'Credentials are incorrect';
-                    $data['secret_err'] = 'Credentials are incorrect';
+                    // when captcha is not clicked
                     $this->view('/Users/login', $data);
                 }
 
@@ -412,6 +429,7 @@ class Users extends Controller {
         $_SESSION['id'] = $user->id;
         $_SESSION['email'] = $user->email;
         $_SESSION['username'] = $user->username;
+        $_SESSION['POST'] = $_POST;
         redirect('Users/dashboard');
     }
 

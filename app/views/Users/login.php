@@ -9,7 +9,7 @@
  * @uses bootstrap4
  */
 
-require APPROOT . "/views/inc/header.php"
+require APPROOT . "/views/inc/header.php";
 /** @var array $data */
 ?>
 

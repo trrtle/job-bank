@@ -20,5 +20,7 @@ define("URLROOT", "http://localhost:58030/job-bank/");
 define("SITENAME", "Power Jobs");
 // app root
 define('APPROOT', dirname(__DIR__));
+
 // app version
 define('APPVERSION', "0.0.1");
+
