@@ -158,18 +158,8 @@ class Users extends Controller {
             // check if errors are empty
             if(empty($data['username_err']) && empty($data['secret_err'])){
 
-                // Captcha check
-                $key = '6LdE4c4UAAAAAKPxkgrCAN7SM1OuFsx1lSZStsA5';
-                $reCaptcha = new \ReCaptcha\ReCaptcha($key);
-                $response = null;
-
-                if($_POST["g-recaptcha-response"]){
-                    $response = $reCaptcha->verify($_SERVER['REMOTE_ADDR'],
-                    $_POST['g-recaptcha-response']);
-                };
-
-                // if captcha is clicked
-                if ($response != null){
+                // check captcha
+                if (captcha($_POST['g-recaptcha-response'])){
                     // try logging in
                     $loggedInUser = $this->userModel->login($data['username'], $data['secret']);
 
@@ -185,8 +175,12 @@ class Users extends Controller {
                         $this->view('/Users/login', $data);
                     }
                 }else{
+                    // when captcha is not clicked load page with errors
 
-                    // when captcha is not clicked
+                    $data = [
+                        'captcha_err'=>'Ben je een robot?'
+                    ];
+
                     $this->view('/Users/login', $data);
                 }
 
