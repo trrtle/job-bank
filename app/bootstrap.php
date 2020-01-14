@@ -15,6 +15,7 @@ require_once 'config/config.php';
 require_once APPROOT . '/helpers/session_helper.php';
 require_once APPROOT . '/helpers/url_helper.php';
 require_once APPROOT . '/helpers/captcha.php';
+require_once APPROOT . '/helpers/mailer.php';
 
 // load composer autoload
 require '../composer/vendor/autoload.php';

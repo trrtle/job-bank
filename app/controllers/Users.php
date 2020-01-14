@@ -111,8 +111,23 @@ class Users extends Controller {
 
                 // Register user
                 if($this->userModel->registerUser($data)){
-                    $_SESSION["flash"] = new Flash("Registration complete!");
-                    redirect("Users/login");
+
+                    // send email
+                    $subject = "Nieuw account";
+                    $message = "Geachte klant uw account is aangemaakt.";
+
+                    if(mailer($_POST['email'], $_POST['username'], $subject, $message)){
+                        $_SESSION["flash"] = new
+                        Flash("Registration complete! Er is een mail gestuurd naar het geregistreerde adress");
+                        redirect("Users/login");
+                    }else{
+
+                        $_SESSION["flash"] = new
+                        Flash("Registration complete!");
+                        redirect("Users/login");
+                    }
+
+
                 }else{
                     die("Something went wrong");
                 }
