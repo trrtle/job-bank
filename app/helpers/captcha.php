@@ -4,22 +4,52 @@
 // basic usage: captcha($_POST['g-recaptcha-response'])
 function captcha($formData){
 
-    $key = '6LdE4c4UAAAAAKPxkgrCAN7SM1OuFsx1lSZStsA5';
-    $reCaptcha = new \ReCaptcha\ReCaptcha($key);
-    $response = null;
+    $url = 'https://www.google.com/recaptcha/api/siteverify';
 
-    if($formData){
-        // verify the captcha
-        $response = $reCaptcha->verify($_SERVER['REMOTE_ADDR'], $formData);
+    $data = array(
+        'secret' => '6LdE4c4UAAAAAKPxkgrCAN7SM1OuFsx1lSZStsA5',
+        'response' => $formData
+    );
 
-        if($response){
-            return true;
-        }else{
-            return false;
-        }
+    $options = array(
+        'http' => array (
+            'method' => 'POST',
+            'content' => http_build_query($data)
+        )
+    );
 
+    $context  = stream_context_create($options);
+    $verify = file_get_contents($url, false, $context);
+    $captcha_result=json_decode($verify);
+
+    if($captcha_result->success == false){
+        return false;
+    }else if ($captcha_result->success == true) {
+        return true;
     }else{
         return false;
     }
+
+
+
+
+
+//    $key = '6LdE4c4UAAAAAKPxkgrCAN7SM1OuFsx1lSZStsA5';
+//    $reCaptcha = new \ReCaptcha\ReCaptcha($key);
+//    $response = null;
+
+//    if($formData){
+//        // verify the captcha
+//        $response = $reCaptcha->verify($_SERVER['REMOTE_ADDR'], $formData);
+//
+//        if($response){
+//            return true;
+//        }else{
+//            return false;
+//        }
+//
+//    }else{
+//        return false;
+//    }
 
 }

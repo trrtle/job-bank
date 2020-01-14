@@ -1,4 +1,3 @@
-// TODO captcha
 // TODO wachtwoord vergeten
 
 // TODO sql format text

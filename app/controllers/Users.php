@@ -92,9 +92,19 @@ class Users extends Controller {
                 $data["secret_confirm_err"] = "Passwords do not match";
             }
 
+            // check captcha
+            if(!captcha($_POST['g-recaptcha-response'])){
+
+                // when captcha is not clicked load page with errors
+                $data['captcha_err'] ='Ben je een robot?';
+
+                $this->view('/Users/register', $data);
+            }
+
             // check if errors are empty
             if(empty($data['username_err']) && empty($data['email_err'])
-                && empty($data['secret_err']) && empty($data['secret_confirm_err'])){
+                && empty($data['secret_err']) && empty($data['secret_confirm_err'])
+                && empty($data['captcha_err'])){
 
                 // Hash password
                 $data['secret'] = password_hash($data['secret'], PASSWORD_DEFAULT);
@@ -155,32 +165,32 @@ class Users extends Controller {
                 $data["secret_err"] = "Please fill in your password";
             }
 
+            // check captcha
+            if(!captcha($_POST['g-recaptcha-response'])){
+
+                // when captcha is not clicked load page with errors
+                $data = [
+                    'captcha_err'=>'Ben je een robot?'
+                ];
+
+                $this->view('/Users/login', $data);
+            }
+
             // check if errors are empty
-            if(empty($data['username_err']) && empty($data['secret_err'])){
+            if(empty($data['username_err']) && empty($data['secret_err']) && empty($data['captcha_err'])){
 
-                // check captcha
-                if (captcha($_POST['g-recaptcha-response'])){
-                    // try logging in
-                    $loggedInUser = $this->userModel->login($data['username'], $data['secret']);
+                // try logging in
+                $loggedInUser = $this->userModel->login($data['username'], $data['secret']);
 
-                    if($loggedInUser){
+                if($loggedInUser){
 
-                        $this->createUserSession($loggedInUser);
+                    $this->createUserSession($loggedInUser);
 
-                    }else{
-
-                        // if password or username is incorrect load login with errors.
-                        $data['username_err'] = 'Credentials are incorrect';
-                        $data['secret_err'] = 'Credentials are incorrect';
-                        $this->view('/Users/login', $data);
-                    }
                 }else{
-                    // when captcha is not clicked load page with errors
 
-                    $data = [
-                        'captcha_err'=>'Ben je een robot?'
-                    ];
-
+                    // if password or username is incorrect load login with errors.
+                    $data['username_err'] = 'Credentials are incorrect';
+                    $data['secret_err'] = 'Credentials are incorrect';
                     $this->view('/Users/login', $data);
                 }
 

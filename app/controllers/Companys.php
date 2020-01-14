@@ -60,8 +60,17 @@ class Companys extends Controller{
                 $data["secret_err"] = "Please fill in your password";
             }
 
+            // check captcha
+            if(!captcha($_POST['g-recaptcha-response'])){
+
+                // when captcha is not clicked load page with errors
+                $data['captcha_err'] ='Ben je een robot?';
+
+                $this->view('/Companys/login', $data);
+            }
+
             // check if errors are empty
-            if(empty($data['username_err']) && empty($data['secret_err'])){
+            if(empty($data['username_err']) && empty($data['secret_err']) && empty($data['captcha_err'])){
 
                 // try logging in
                 $loggedInComp = $this->compModel->login($data['username'], $data['secret']);

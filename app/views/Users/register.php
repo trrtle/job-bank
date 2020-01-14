@@ -43,6 +43,14 @@ require APPROOT . "/views/inc/header.php"
                     <?php echo (!empty($data['secret_confirm_err'])) ? 'is-invalid' : ''; ?>" value="">
                     <span class="invalid-feedback"><?php echo $data['secret_confirm_err']; ?></span>
                 </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <div class="g-recaptcha
+                            <?php echo (!empty($data['captcha_err'])) ? 'is-invalid' : ''; ?>"
+                             data-sitekey="6LdE4c4UAAAAACrE2_IoTA6cO48on4-WptN9Dbor"></div>
+                        <span class="invalid-feedback "><?php echo $data['captcha_err']; ?></span>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col">
                         <button type="submit" class="btn btn-success btn-block">Register</button>
