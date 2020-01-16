@@ -215,14 +215,14 @@ class User{
     }
 
     // update user secret
-    public function updateSecret($newSecret){
+    public function updateSecret($newSecret, $id){
        $newSecret = password_hash($newSecret, PASSWORD_DEFAULT);
 
         $sql = "UPDATE users SET secret = :secret WHERE users.id = :id";
 
         $this->db->query($sql);
         $this->db->bind(":secret", $newSecret);
-        $this->db->bind(":id", $_SESSION['id']);
+        $this->db->bind(":id", $id);
 
         if($this->db->execute()){
             return true;

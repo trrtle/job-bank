@@ -399,7 +399,7 @@ class Users extends Controller {
 
 
                     // update secret
-                    if($this->userModel->updateSecret($data['secret'])){
+                    if($this->userModel->updateSecret($data['secret'], $_SESSION['id'])){
                         $_SESSION['flash'] = new Flash("Wachtwoord aangepast!");
                         redirect("Users/settings");
                     }else{
@@ -496,7 +496,7 @@ class Users extends Controller {
 
             // haal timestamp uit de url.
             $find = 'timestamp=';
-            $index = strpos($urltoken, $find) + strlen($find);
+            $index = strpos($urlToken, $find) + strlen($find);
             $timestamp1 = substr($urlToken, $index);
 
             // check of token niet is verouderd
@@ -505,7 +505,8 @@ class Users extends Controller {
 
             // check if timestamp is greater then a hour.
             if ($timestamp2 - $timestamp1 > 3600) {
-                // exit script
+                $_SESSION['flash'] = new Flash("Onjuiste aanvraag", 'alert alert-danger');
+                redirect('Companys/login');
             }
 
 
@@ -514,21 +515,27 @@ class Users extends Controller {
 
             if(!empty($row)){
                 // update nieuwe wachtwoord.
-                $this->userModel->updateSecret($_POST["secret"]);
+                if($this->userModel->updateSecret($_POST["secret"], $_SESSION['id'])){
+                    $_SESSION['flash'] = new Flash("Wachtwoord is aangepast");
+                   redirect("Users/login");
+                }else{
+                    $_SESSION['flash'] = new Flash("Onjuiste aanvraag", 'alert alert-danger');
+                   redirect('Users/login');
+                }
             }else{
-                // exit script
+                $_SESSION['flash'] = new Flash("row is empty", 'alert alert-danger');
+                redirect('Users/login');
             }
 
+        }else{ // if not post request
+            $data = [
+
+            ];
+
+            $this->view("Users/passwordReset", $data);
         }
 
 
-
-
-        $data = [
-
-        ];
-
-        $this->view("Users/passwordReset", $data);
     }
 
 

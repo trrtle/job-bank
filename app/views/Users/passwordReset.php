@@ -8,7 +8,7 @@ require APPROOT . "/views/inc/header.php";
         <div class="card card-body bg-light mt-5">
             <h2>Wachtwoord resetten</h2>
             <p>Vul hier je email adres en nieuwe wachtwoord in</p>
-            <form action="<?php echo URLROOT?>users/passwordRecovery" method="post">
+            <form action="<?php echo URLROOT?>users/passwordReset" method="post">
                 <div class="form-group">
                     <label for="email">email<sup>*</sup></label>
                     <input type="email" name="email" class="form-control form-control-lg
