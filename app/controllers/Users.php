@@ -455,7 +455,7 @@ class Users extends Controller {
 
                 // Create URL
                 $url = URLROOT . "users/passwordReset/";
-                $url = $url . "?token=" . $token . "&timestamp=".$timestamp;
+                $url = $url . "token=" . $token . "timestamp=".$timestamp;
 
 
                 $subject = "Wachtwoord resetten";
@@ -465,7 +465,7 @@ class Users extends Controller {
                 mailer($email, "Gebruiker", $subject, $message);
 
 
-                $_SESSION['flash'] = new Flash("er is een recovery mail gestuurd naar het opgegeven adres");
+                $_SESSION['flash'] = new Flash("Er is een recovery mail gestuurd naar het opgegeven adres");
                 redirect("Users/login");
             }else{
                 $_SESSION['flash'] = new Flash("Er is iets fout gegaan", "alert alert-danger");
@@ -479,6 +479,15 @@ class Users extends Controller {
         ];
 
         $this->view("Users/passwordRecovery", $data);
+    }
+
+    public function passwordReset($token = ''){
+
+        $data = [
+            'token' => $token
+        ];
+
+        $this->view("Users/passwordReset", $data);
     }
 
 
