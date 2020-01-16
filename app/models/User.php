@@ -261,6 +261,22 @@ class User{
         }
     }
 
+    public function getToken($email, $token){
+        $sql = "SELECT * FROM users WHERE email = :email AND token = :token";
+
+        $this->db->query($sql);
+        $this->db->bind(":token", $token);
+        $this->db->bind(":email", $email);
+
+
+        if ($this->db->rowCount() > 0){
+            return $this->db->resultRow();
+        }else{
+            return false;
+        }
+
+    }
+
 
 
 

@@ -449,15 +449,16 @@ class Users extends Controller {
             $token = bin2hex(random_bytes(32));
             $timestamp = new DateTime("now");
             $timestamp = $timestamp->getTimestamp();
+            $token = $token . "timestamp=" . $timestamp;
 
             // set token
             if($this->userModel->setToken($email, $token)){
 
                 // Create URL
                 $url = URLROOT . "users/passwordReset/";
-                $url = $url . "token=" . $token . "timestamp=".$timestamp;
+                $url = $url . "token=" . $token;
 
-
+                // create email.
                 $subject = "Wachtwoord resetten";
                 $message = "<p>U heeft zo juist een wachtwoord recovery aangevraagd.
                             klik op deze link: <a href='$url'>Password recovery</a> om uw wachtwoord te resetten.</p>";
@@ -481,10 +482,50 @@ class Users extends Controller {
         $this->view("Users/passwordRecovery", $data);
     }
 
-    public function passwordReset($token = ''){
+    public function passwordReset($urlToken = ''){
+
+        // check for POST
+        if($_SERVER["REQUEST_METHOD"] == 'POST') {
+
+            // Sanitize POST data. 1. call htmlspecialchars() on entire array. 2. set every value as a string
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            $urlToken = htmlspecialchars($urlToken);
+
+            $email = $_POST['email'];
+
+            // haal timestamp uit de url.
+            $find = 'timestamp=';
+            $index = strpos($urltoken, $find) + strlen($find);
+            $timestamp1 = substr($urlToken, $index);
+
+            // check of token niet is verouderd
+            $timestamp2 = new DateTime("now");
+            $timestamp2 = $timestamp2->getTimestamp();
+
+            // check if timestamp is greater then a hour.
+            if ($timestamp2 - $timestamp1 > 3600) {
+                // exit script
+            }
+
+
+            // get token from db
+            $row = $this->userModel->getToken($email, $urlToken);
+
+            if(!empty($row)){
+                // update nieuwe wachtwoord.
+                $this->userModel->updateSecret($_POST["secret"]);
+            }else{
+                // exit script
+            }
+
+        }
+
+
+
 
         $data = [
-            'token' => $token
+
         ];
 
         $this->view("Users/passwordReset", $data);
