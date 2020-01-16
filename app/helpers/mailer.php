@@ -7,22 +7,23 @@ require '../composer/vendor/phpmailer/phpmailer/src/SMTP.php';
 require '../composer/vendor/phpmailer/phpmailer/src/Exception.php';
 
 function mailer($receiverMail, $receiverName, $subject, $message){
+
     $mail = new PHPMailer();
 
     // verbinden met Gmail
     $mail->isSMTP();
     $mail->SMTPAuth = true;
     $mail->SMTPSecure = 'ssl';
-    $mail->Host = 'smtp.gmail.com';
-    $mail->Port = 465;
+    $mail->Host = MAIL_HOST;
+    $mail->Port = MAIL_PORT;
 
     // Gmail authentication.
-    $mail->Username='Turtledev94@gmail.com';
-    $mail->Password='Asdf1234!';
+    $mail->Username = MAIL_USERNAME;
+    $mail->Password = MAIL_SECRET;
 
     // Create Email.
     $mail->isHTML(true);
-    $mail->setFrom('Turtledev94@gmail.com', "Naam");
+    $mail->setFrom(MAIL_USERNAME, SITENAME);
     $mail->Subject = $subject;
     $mail->CharSet = 'UTF-8';
 
@@ -37,4 +38,12 @@ function mailer($receiverMail, $receiverName, $subject, $message){
     }else{
         return false;
     }
+}
+
+function registrationEmail($email, $username){
+
+    $subject = "Nieuw account";
+    $message = "Geachte $username uw account is aangemaakt.";
+
+    mailer($email, $username, $subject, $message);
 }

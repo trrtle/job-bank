@@ -112,20 +112,11 @@ class Users extends Controller {
                 // Register user
                 if($this->userModel->registerUser($data)){
 
-                    // send email
-                    $subject = "Nieuw account";
-                    $message = "Geachte klant uw account is aangemaakt.";
+                    registrationEmail($_POST['email'], $_POST['username']);
+                    $_SESSION["flash"] = new Flash("Registration complete! 
+                    Er is een mail gestuurd naar het geregistreerde adres");
+                    redirect("Users/login");
 
-                    if(mailer($_POST['email'], $_POST['username'], $subject, $message)){
-                        $_SESSION["flash"] = new
-                        Flash("Registration complete! Er is een mail gestuurd naar het geregistreerde adress");
-                        redirect("Users/login");
-                    }else{
-
-                        $_SESSION["flash"] = new
-                        Flash("Registration complete!");
-                        redirect("Users/login");
-                    }
 
 
                 }else{
@@ -441,6 +432,53 @@ class Users extends Controller {
             $this->view("Users/settings", $data );
         }
 
+    }
+
+    public function passwordRecovery(){
+        // check for POST
+        if($_SERVER["REQUEST_METHOD"] == 'POST') {
+
+            // Sanitize POST data. 1. call htmlspecialchars() on entire array. 2. set every value as a string
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+
+            $email = $_POST['email'];
+
+            // Generate a token
+            $token = bin2hex(random_bytes(32));
+            $timestamp = new DateTime("now");
+            $timestamp = $timestamp->getTimestamp();
+
+            // set token
+            if($this->userModel->setToken($email, $token)){
+
+                // Create URL
+                $url = URLROOT . "users/passwordReset/";
+                $url = $url . "?token=" . $token . "&timestamp=".$timestamp;
+
+
+                $subject = "Wachtwoord resetten";
+                $message = "<p>U heeft zo juist een wachtwoord recovery aangevraagd.
+                            klik op deze link: <a href='$url'>Password recovery</a> om uw wachtwoord te resetten.</p>";
+                // send mail with url
+                mailer($email, "Gebruiker", $subject, $message);
+
+
+                $_SESSION['flash'] = new Flash("er is een recovery mail gestuurd naar het opgegeven adres");
+                redirect("Users/login");
+            }else{
+                $_SESSION['flash'] = new Flash("Er is iets fout gegaan", "alert alert-danger");
+                redirect("Users/login");
+            }
+
+        }
+
+        $data = [
+
+        ];
+
+        $this->view("Users/passwordRecovery", $data);
     }
 
 

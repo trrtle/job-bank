@@ -24,3 +24,13 @@ define('APPROOT', dirname(__DIR__));
 // app version
 define('APPVERSION', "0.0.1");
 
+// Mail server settings
+define('MAIL_HOST', 'smtp.gmail.com');
+define('MAIL_PORT', '465');
+
+// Mail user settings
+define('MAIL_USERNAME', 'Turtledev94@gmail.com');
+define('MAIL_SECRET', 'Asdf1234!');
+
+
+

@@ -247,6 +247,20 @@ class User{
         }
     }
 
+    public function setToken($email, $token){
+        $sql = "UPDATE users SET token = :token WHERE email = :email";
+
+        $this->db->query($sql);
+        $this->db->bind(":token", $token);
+        $this->db->bind(":email", $email);
+
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 
 
 
