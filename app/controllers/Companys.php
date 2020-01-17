@@ -382,14 +382,14 @@ class Companys extends Controller{
 
             // form checks
             if(empty($_POST['email'])){
-                $_SESSION['flash'] = new Flash("Onjuiste aanvraag: velden mogen niet leeg zijn1",
+                $_SESSION['flash'] = new Flash("Onjuiste aanvraag: velden mogen niet leeg zijn",
                     'alert alert-danger');
                 redirect("Companys/login");
                 exit();
             }
 
             if(empty($_POST["secret"])){
-                $_SESSION['flash'] = new Flash("Onjuiste aanvraag: velden mogen niet leeg zijn2", 'alert alert-danger');
+                $_SESSION['flash'] = new Flash("Onjuiste aanvraag: velden mogen niet leeg zijn", 'alert alert-danger');
                 redirect("Companys/login");
                 exit();
             }elseif (strlen($_POST['secret']) < 6 ){
@@ -400,7 +400,7 @@ class Companys extends Controller{
             }
 
             if(empty($_POST["secret_confirm"])){
-                $_SESSION['flash'] = new Flash("Onjuiste aanvraag: velden mogen niet leeg zijn3",
+                $_SESSION['flash'] = new Flash("Onjuiste aanvraag: velden mogen niet leeg zijn",
                     'alert alert-danger');
                 redirect("Companys/login");
                 exit();
