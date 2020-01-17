@@ -22,7 +22,7 @@ require APPROOT . "/views/inc/header.php";
                 <tr>
                     <td>
                         <a href="<?php echo  URLROOT . "Responses/show/" . $resp->resp_id;?>">
-                            <?php echo $resp->firstname . ' ' . $resp->lastname ?>
+                            <?php echo (!empty($resp->firstname) ? $resp->firstname . ' ' . $resp->lastname : $resp->username )?>
                         </a>
                     </td>
                     </a>
