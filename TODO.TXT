@@ -1,4 +1,4 @@
-// TODO wachtwoord vergeten
+// TODO add captcha to companys login
 
 // TODO sql format text
 // TODO voeg filter toe aan vacatures
