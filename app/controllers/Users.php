@@ -30,7 +30,7 @@ class Users extends Controller {
 
     public function dashboard(){
 
-        if(!isLoggedIn()){
+        if(!user_isLoggedIn()){
             redirect("users/login");
         }
 

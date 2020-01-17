@@ -68,3 +68,11 @@ function user_isLoggedIn(){
         return false;
     }
 }
+
+function admin_isLoggedIn(){
+    if(isset($_SESSION['admin_id']) && isset($_SESSION['username'])){
+        return true;
+    }else{
+        return false;
+    }
+}

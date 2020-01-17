@@ -1,7 +1,6 @@
-// TODO add captcha to companys login
-
-// TODO sql format text
-// TODO voeg filter toe aan vacatures
-// TODO zoek functie
-// TODO breadcrumbs
-// TODO aap randstad na
+ 2factor voor admins
+ sql format text
+ voeg filter toe aan vacatures
+ zoek functie
+ breadcrumbs
+ aap randstad na
