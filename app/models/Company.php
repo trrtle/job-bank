@@ -154,14 +154,14 @@ class Company{
     }
 
     // update password
-    public function updateSecret($newSecret){
+    public function updateSecret($newSecret, $id){
         $newSecret = password_hash($newSecret, PASSWORD_DEFAULT);
 
         $sql = "UPDATE companys SET comp_secret = :secret WHERE companys.comp_id = :id";
 
         $this->db->query($sql);
         $this->db->bind(":secret", $newSecret);
-        $this->db->bind(":id", $_SESSION['comp_id']);
+        $this->db->bind(":id", $id);
 
         if($this->db->execute()){
             return true;
@@ -200,6 +200,37 @@ class Company{
         }else{
             return false;
         }
+    }
+
+    public function setToken($email, $token){
+        $sql = "UPDATE companys SET token = :token WHERE comp_email = :email";
+
+        $this->db->query($sql);
+        $this->db->bind(":token", $token);
+        $this->db->bind(":email", $email);
+
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function getToken($email, $token){
+        $sql = "SELECT * FROM companys WHERE comp_email = :email AND token = :token";
+
+        $this->db->query($sql);
+        $this->db->bind(":token", $token);
+        $this->db->bind(":email", $email);
+
+        $row = $this->db->resultRow();
+
+        if($this->db->rowCount() > 0){
+            return $row;
+        }else{
+            return false;
+        }
+
     }
 }
 

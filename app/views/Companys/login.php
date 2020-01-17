@@ -16,6 +16,7 @@ require APPROOT . "/views/inc/header.php"
 <div class="row">
     <div class="col-md-6 mx-auto">
         <div class="card card-body bg-light mt-5">
+            <?php if(!empty($_SESSION['flash'])) {$_SESSION['flash']->show(); unset($_SESSION['flash']);}?>
             <h2>Login voor bedrijven</h2>
             <p>Vul hier uw login gegevens in</p>
             <form action="<?php echo URLROOT?>Companys/login" method="post">
@@ -26,7 +27,11 @@ require APPROOT . "/views/inc/header.php"
                     <span class="invalid-feedback"><?php echo $data['username_err']; ?></span>
                 </div>
                 <div class="form-group">
-                    <label for="secret">Wachtwoord<sup>*</sup></label>
+                    <label for="secret">Wachtwoord<sup>*</sup>
+                        <a href="<?php echo URLROOT . "Companys/passwordRecovery"?>">
+                            <small> wachtwoord vergeten?</small>
+                        </a>
+                    </label>
                     <input type="password" name="secret" class="form-control form-control-lg
                     <?php echo (!empty($data['secret_err'])) ? 'is-invalid' : ''; ?>" value="">
                     <span class="invalid-feedback"><?php echo $data['secret_err']; ?></span>

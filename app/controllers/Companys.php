@@ -281,7 +281,7 @@ class Companys extends Controller{
 
 
                     // update secret
-                    if($this->compModel->updateSecret($data['secret'])){
+                    if($this->compModel->updateSecret($data['secret'], $_SESSION['comp_id'])){
                         $_SESSION['flash'] = new Flash("Wachtwoord aangepast!");
                         redirect("Companys/settings");
                     }else{
@@ -315,6 +315,164 @@ class Companys extends Controller{
         }
 
     }
+
+    public function passwordRecovery(){
+        // check for POST
+        if($_SERVER["REQUEST_METHOD"] == 'POST') {
+
+            // Sanitize POST data. 1. call htmlspecialchars() on entire array. 2. set every value as a string
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            $email = $_POST['email'];
+
+            if(!$this->compModel->findCompByEmail($email)){
+                $data = [
+                    'email_err'=>'Gebruiker bestaat niet.',
+                    'email'=>$email
+                ];
+
+                $this->view("Companys/passwordRecovery", $data);
+            }
+
+            // Generate a token
+            $token = bin2hex(random_bytes(32));
+            $timestamp = new DateTime("now");
+            $timestamp = $timestamp->getTimestamp();
+            $token = $token . "timestamp" . $timestamp;
+
+            // set token
+            if($this->compModel->setToken($email, $token)){
+
+                // Create URL
+                $url = URLROOT . "companys/passwordReset/";
+                $url = $url . "token=" . $token;
+
+                // create email.
+                $subject = "Wachtwoord resetten";
+                $message = "<p>U heeft zo juist een wachtwoord recovery aangevraagd.
+                            klik op deze link: <a href='$url'>Password recovery</a> om uw wachtwoord te resetten.</p>";
+                // send mail with url
+                mailer($email, "Bedrijf", $subject, $message);
+
+
+                $_SESSION['flash'] = new Flash("Er is een recovery mail gestuurd naar het opgegeven adres");
+                redirect("companys/login");
+            }else{
+                $_SESSION['flash'] = new Flash("Er is iets fout gegaan", "alert alert-danger");
+                redirect("companys/login");
+            }
+        }
+
+        $data = [
+
+        ];
+
+        $this->view("Companys/passwordRecovery", $data);
+    }
+
+    public function passwordReset($token = ''){
+
+        // check for POST
+        if($_SERVER["REQUEST_METHOD"] == 'POST') {
+
+            // Sanitize POST data. 1. call htmlspecialchars() on entire array. 2. set every value as a string
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            // form checks
+            if(empty($_POST['email'])){
+                $_SESSION['flash'] = new Flash("Onjuiste aanvraag: velden mogen niet leeg zijn1",
+                    'alert alert-danger');
+                redirect("Companys/login");
+                exit();
+            }
+
+            if(empty($_POST["secret"])){
+                $_SESSION['flash'] = new Flash("Onjuiste aanvraag: velden mogen niet leeg zijn2", 'alert alert-danger');
+                redirect("Companys/login");
+                exit();
+            }elseif (strlen($_POST['secret']) < 6 ){
+                $_SESSION['flash'] = new Flash("Onjuiste aanvraag: wachtwoord moet minmaal 6 characters lang zijn",
+                    'alert alert-danger');
+                redirect("Companys/login");
+                exit();
+            }
+
+            if(empty($_POST["secret_confirm"])){
+                $_SESSION['flash'] = new Flash("Onjuiste aanvraag: velden mogen niet leeg zijn3",
+                    'alert alert-danger');
+                redirect("Companys/login");
+                exit();
+            }elseif ($_POST['secret'] !== $_POST["secret_confirm"]){
+                $_SESSION['flash'] = new Flash("Onjuiste aanvraag: wachtwoorden zijn niet gelijk",
+                    'alert alert-danger');
+                redirect("Companys/login");
+                exit();
+            }
+
+            // check if token is in url
+            if(!empty($token)){
+                $token = str_replace("token=", "", $token);
+                $email = $_POST['email'];
+
+                // haal timestamp uit de url.
+                $index = strpos($token, 'timestamp') + strlen('timestamp');
+                $timestamp1 = substr($token, $index);
+
+                // check of token niet is verouderd
+                $timestamp2 = new DateTime("now");
+                $timestamp2 = $timestamp2->getTimestamp();
+                $timestamp = $timestamp2 - $timestamp1;
+
+                if ($timestamp2 - $timestamp1 > 3600) { // if timestamp is greater then a hour.
+                    $_SESSION['flash'] = new Flash("Aanvraag is verlopen", 'alert alert-danger');
+                    redirect('Companys/login');
+                }
+
+                // get token from db
+                $row = $this->compModel->getToken($email, $token);
+
+                if(!empty($row)){
+
+                    // update nieuwe wachtwoord.
+                    if($this->compModel->updateSecret($_POST["secret"], $row->comp_id)){
+                        $_SESSION['flash'] = new Flash("Wachtwoord is aangepast");
+                        redirect("Companys/login");
+                    }else{
+                        $_SESSION['flash'] = new Flash("Onjuiste aanvraag", 'alert alert-danger');
+                        redirect('Companys/login');
+                        exit();
+                    }
+
+                }else{
+
+                    $_SESSION['flash'] = new Flash("ongeldige aanvraag", 'alert alert-danger');
+                    redirect('Companys/login');
+                    exit();
+                }
+
+            }else{ // if token is empty
+
+                $_SESSION['flash'] = new Flash("Geen geldige aanvraag.", 'alert alert-danger');
+                redirect('Companys/login');
+                exit();
+            }
+
+        }else{ // if not post request
+
+
+            $data = [
+                'token'=>$token
+            ];
+
+            $this->view("Companys/passwordReset", $data);
+        }
+
+
+    }
+
+
 
     public function logout(){
         unset($_SESSION['comp_id']);
