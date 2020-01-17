@@ -444,6 +444,15 @@ class Users extends Controller {
 
             $email = $_POST['email'];
 
+            if(!$this->userModel->findUserByEmail($email)){
+                $data = [
+                    'email_err'=>'Gebruiker bestaat niet.',
+                    'email'=>$email
+                ];
+
+                $this->view("Users/passwordRecovery", $data);
+            }
+
             // Generate a token
             $token = bin2hex(random_bytes(32));
             $timestamp = new DateTime("now");
@@ -486,9 +495,42 @@ class Users extends Controller {
         // check for POST
         if($_SERVER["REQUEST_METHOD"] == 'POST') {
 
+
+
             // Sanitize POST data. 1. call htmlspecialchars() on entire array. 2. set every value as a string
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            // form checks
+            if(empty($_POST['email'])){
+                $_SESSION['flash'] = new Flash("Onjuiste aanvraag: velden mogen niet leeg zijn1",
+                    'alert alert-danger');
+                redirect("Users/login");
+                exit();
+            }
+
+            if(empty($_POST["secret"])){
+                $_SESSION['flash'] = new Flash("Onjuiste aanvraag: velden mogen niet leeg zijn2", 'alert alert-danger');
+                redirect("Users/login");
+                exit();
+            }elseif (strlen($_POST['secret']) < 6 ){
+                $_SESSION['flash'] = new Flash("Onjuiste aanvraag: wachtwoord moet minmaal 6 characters lang zijn",
+                    'alert alert-danger');
+                redirect("Users/login");
+                exit();
+            }
+
+            if(empty($_POST["secret_confirm"])){
+                $_SESSION['flash'] = new Flash("Onjuiste aanvraag: velden mogen niet leeg zijn3",
+                    'alert alert-danger');
+                redirect("Users/login");
+                exit();
+            }elseif ($_POST['secret'] !== $_POST["secret_confirm"]){
+                $_SESSION['flash'] = new Flash("Onjuiste aanvraag: wachtwoorden zijn niet gelijk",
+                    'alert alert-danger');
+                redirect("Users/login");
+                exit();
+            }
 
             // check if token is in url
             if(!empty($token)){
@@ -521,21 +563,25 @@ class Users extends Controller {
                     }else{
                         $_SESSION['flash'] = new Flash("Onjuiste aanvraag", 'alert alert-danger');
                         redirect('Users/login');
+                        exit();
                     }
 
                 }else{
 
-                    $_SESSION['flash'] = new Flash("row is empty", 'alert alert-danger');
+                    $_SESSION['flash'] = new Flash("ongeldige aanvraag", 'alert alert-danger');
                     redirect('Users/login');
+                    exit();
                 }
 
             }else{ // if token is empty
 
                 $_SESSION['flash'] = new Flash("Geen geldige aanvraag.", 'alert alert-danger');
                 redirect('Users/login');
+                exit();
             }
 
         }else{ // if not post request
+
 
             $data = [
                 'token'=>$token

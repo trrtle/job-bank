@@ -131,9 +131,4 @@ class Database{
     public function rowCount(){
         return $this->stmt->rowCount();
     }
-
-    public function quotes($string)
-    {
-        return $this->dbh->quote($string);
-    }
 }

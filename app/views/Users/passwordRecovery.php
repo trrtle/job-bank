@@ -12,17 +12,18 @@ require APPROOT . "/views/inc/header.php";
                 <div class="form-group">
                     <label for="email">email<sup>*</sup></label>
                     <input type="email" name="email" class="form-control form-control-lg
-                    <?php echo (!empty($data['email_err'])) ? 'is-invalid' : ''; ?>">
+                    <?php echo (!empty($data['email_err'])) ? 'is-invalid' : ''; ?>"
+                    value="<?php echo $data['email']; ?>">
                     <span class="invalid-feedback"><?php echo $data['email_err']; ?></span>
                 </div>
-<!--                <div class="row mb-3">-->
-<!--                    <div class="col">-->
-<!--                        <div class="g-recaptcha-->
-<!--                            --><?php //echo (!empty($data['captcha_err'])) ? 'is-invalid' : ''; ?><!--"-->
-<!--                             data-sitekey="6LdE4c4UAAAAACrE2_IoTA6cO48on4-WptN9Dbor"></div>-->
-<!--                        <span class="invalid-feedback ">--><?php //echo $data['captcha_err']; ?><!--</span>-->
-<!--                    </div>-->
-<!--                </div>-->
+                <div class="row mb-3">
+                    <div class="col">
+                        <div class="g-recaptcha
+                            <?php echo (!empty($data['captcha_err'])) ? 'is-invalid' : ''; ?>"
+                             data-sitekey="6LdE4c4UAAAAACrE2_IoTA6cO48on4-WptN9Dbor"></div>
+                        <span class="invalid-feedback "><?php echo $data['captcha_err']; ?></span>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-6">
                         <button type="submit" class="btn btn-success btn-block">Aanvragen</button>
