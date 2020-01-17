@@ -442,14 +442,13 @@ class Users extends Controller {
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-
             $email = $_POST['email'];
 
             // Generate a token
             $token = bin2hex(random_bytes(32));
             $timestamp = new DateTime("now");
             $timestamp = $timestamp->getTimestamp();
-            $token = $token . "timestamp=" . $timestamp;
+            $token = $token . "timestamp" . $timestamp;
 
             // set token
             if($this->userModel->setToken($email, $token)){
@@ -482,7 +481,7 @@ class Users extends Controller {
         $this->view("Users/passwordRecovery", $data);
     }
 
-    public function passwordReset($urlToken = ''){
+    public function passwordReset($token = ''){
 
         // check for POST
         if($_SERVER["REQUEST_METHOD"] == 'POST') {
@@ -490,46 +489,56 @@ class Users extends Controller {
             // Sanitize POST data. 1. call htmlspecialchars() on entire array. 2. set every value as a string
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-            $urlToken = htmlspecialchars($urlToken);
 
-            $email = $_POST['email'];
+            // check if token is in url
+            if(!empty($token)){
+                $token = str_replace("token=", "", $token);
+                $email = $_POST['email'];
 
-            // haal timestamp uit de url.
-            $find = 'timestamp=';
-            $index = strpos($urlToken, $find) + strlen($find);
-            $timestamp1 = substr($urlToken, $index);
+                // haal timestamp uit de url.
+                $index = strpos($token, 'timestamp') + strlen('timestamp');
+                $timestamp1 = substr($token, $index);
 
-            // check of token niet is verouderd
-            $timestamp2 = new DateTime("now");
-            $timestamp2 = $timestamp2->getTimestamp();
+                // check of token niet is verouderd
+                $timestamp2 = new DateTime("now");
+                $timestamp2 = $timestamp2->getTimestamp();
+                $timestamp = $timestamp2 - $timestamp1;
 
-            // check if timestamp is greater then a hour.
-            if ($timestamp2 - $timestamp1 > 3600) {
-                $_SESSION['flash'] = new Flash("Onjuiste aanvraag", 'alert alert-danger');
-                redirect('Companys/login');
-            }
-
-
-            // get token from db
-            $row = $this->userModel->getToken($email, $urlToken);
-
-            if(!empty($row)){
-                // update nieuwe wachtwoord.
-                if($this->userModel->updateSecret($_POST["secret"], $_SESSION['id'])){
-                    $_SESSION['flash'] = new Flash("Wachtwoord is aangepast");
-                   redirect("Users/login");
-                }else{
-                    $_SESSION['flash'] = new Flash("Onjuiste aanvraag", 'alert alert-danger');
-                   redirect('Users/login');
+                if ($timestamp2 - $timestamp1 > 3600) { // if timestamp is greater then a hour.
+                    $_SESSION['flash'] = new Flash("Aanvraag is verlopen", 'alert alert-danger');
+                    redirect('Users/login');
                 }
-            }else{
-                $_SESSION['flash'] = new Flash("row is empty", 'alert alert-danger');
+
+                // get token from db
+                $row = $this->userModel->getToken($email, $token);
+
+                if(!empty($row)){
+
+                    // update nieuwe wachtwoord.
+                    if($this->userModel->updateSecret($_POST["secret"], $row->id)){
+                        $_SESSION['flash'] = new Flash("Wachtwoord is aangepast");
+                        redirect("Users/login");
+                    }else{
+                        $_SESSION['flash'] = new Flash("Onjuiste aanvraag", 'alert alert-danger');
+                        redirect('Users/login');
+                    }
+
+                }else{
+
+                    $_SESSION['flash'] = new Flash("row is empty", 'alert alert-danger');
+                    redirect('Users/login');
+                }
+
+            }else{ // if token is empty
+
+                $_SESSION['flash'] = new Flash("Geen geldige aanvraag.", 'alert alert-danger');
                 redirect('Users/login');
             }
 
         }else{ // if not post request
-            $data = [
 
+            $data = [
+                'token'=>$token
             ];
 
             $this->view("Users/passwordReset", $data);

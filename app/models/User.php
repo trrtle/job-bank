@@ -264,13 +264,15 @@ class User{
     public function getToken($email, $token){
         $sql = "SELECT * FROM users WHERE email = :email AND token = :token";
 
+
         $this->db->query($sql);
         $this->db->bind(":token", $token);
         $this->db->bind(":email", $email);
 
+        $row = $this->db->resultRow();
 
-        if ($this->db->rowCount() > 0){
-            return $this->db->resultRow();
+        if($this->db->rowCount() > 0){
+            return $row;
         }else{
             return false;
         }
