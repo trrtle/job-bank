@@ -359,7 +359,7 @@ class Admins extends Controller
             }
             // check if email belongs to another account.
             $user = $this->userModel->findUserByEmail($data['email']);
-            if ($user && $user->comp_id != $id) {
+            if ($user && $user->id != $id) {
                 $data["email_err"] = "Email already exists";
             }
 

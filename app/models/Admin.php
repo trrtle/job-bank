@@ -142,7 +142,7 @@ class Admin
     public function editUser($data){
         $sql = "UPDATE users SET 
         username = :username, 
-        email = :email, 
+        email = :email
         WHERE id = :id;";
 
         $this->db->query($sql);

@@ -20,7 +20,7 @@ $users = $data['users'];
 } ?>
 <div class="row mb-3">
     <div class="col">
-        <h1>Administrator dashboard</h1>
+        <h1>Admin dashboard</h1>
     </div>
 </div>
 <div class="accordion" id="accordionExample">
