@@ -139,5 +139,24 @@ class Admin
         }
     }
 
+    public function editUser($data){
+        $sql = "UPDATE users SET 
+        username = :username, 
+        email = :email, 
+        WHERE id = :id;";
+
+        $this->db->query($sql);
+
+        $this->db->bind(":username", $data['username']);
+        $this->db->bind(":email", $data['email']);
+        $this->db->bind(":id", $data['id']);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
 }

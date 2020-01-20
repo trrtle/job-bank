@@ -2,6 +2,7 @@
 verwijder tags
 wanneer je een bedrijf verwijdert. verwijder dan ook alle vacatures en de reacties daar op.
 zelfde met gebruiker en zijn reacties.
+logout wanneer je als ander inlogd
 
  2factor voor admins
  sql format text
