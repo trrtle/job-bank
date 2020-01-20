@@ -19,7 +19,7 @@ $comps = $data['comps'];
 } ?>
 <div class="row mb-3">
     <div class="col">
-        <h1>Administrators dashboard</h1>
+        <h1>Administrator dashboard</h1>
     </div>
 </div>
 <div class="accordion" id="accordionExample">

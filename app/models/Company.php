@@ -17,9 +17,10 @@
  *
  * @property object $db - Database() object.
  */
-
-class Company{
+class Company
+{
     private $db;
+
     public function __construct()
     {
         $this->db = new Database();
@@ -36,22 +37,24 @@ class Company{
      *
      * @return bool
      */
-    public function login($username, $secret){
+    public function login($username, $secret)
+    {
         // search if the user exists
         $row = $this->findCompByLogin($username);
-        if($row){
+        if ($row) {
             // check if passwords match
-            if(password_verify($secret, $row->comp_secret)){
+            if (password_verify($secret, $row->comp_secret)) {
                 return $row;
-            }else{
+            } else {
                 return false;
             }
-        }else{
+        } else {
             return false;
         }
     }
 
-    public function registerComp($credentials){
+    public function registerComp($credentials)
+    {
         // prepare statement
         $this->db->query("INSERT INTO companys (comp_username, comp_email, comp_secret, comp_name, comp_city) 
                         VALUES (:username, :email, :secret, :comp_name, :city);");
@@ -64,9 +67,9 @@ class Company{
         $this->db->bind(':city', $credentials['city']);
 
         // execute statement
-        if($this->db->execute()){
+        if ($this->db->execute()) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -83,7 +86,8 @@ class Company{
      *
      * @return object - PDO row object.
      */
-    public function findCompByLogin($login){
+    public function findCompByLogin($login)
+    {
         // prepare statement
         $this->db->query("SELECT * FROM companys WHERE comp_username = :login OR comp_email = :login ;");
         // bind value
@@ -91,14 +95,15 @@ class Company{
         // execute and get row
         $row = $this->db->resultRow();
 
-        if($this->db->rowCount() > 0){
+        if ($this->db->rowCount() > 0) {
             return $row;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public function findCompByName($compName){
+    public function findCompByName($compName)
+    {
         // prepare statement
         $this->db->query("SELECT * FROM companys WHERE comp_username = :username ;");
         // bind value
@@ -106,13 +111,12 @@ class Company{
         // execute and get row
         $row = $this->db->resultRow();
 
-        if($this->db->rowCount() > 0){
+        if ($this->db->rowCount() > 0) {
             return $row;
-        }else{
+        } else {
             return false;
         }
     }
-
 
 
     /**
@@ -127,7 +131,8 @@ class Company{
      *
      * @return bool
      */
-    public function findCompByEmail($email){
+    public function findCompByEmail($email)
+    {
         // prepare statement
         $this->db->query("SELECT * FROM companys WHERE comp_email = :email ;");
         // bind value
@@ -135,14 +140,15 @@ class Company{
         // execute and get row
         $row = $this->db->resultRow();
 
-        if($this->db->rowCount() > 0){
+        if ($this->db->rowCount() > 0) {
             return $row;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public function getCompById($id){
+    public function getCompById($id)
+    {
         // prepare statement
         $this->db->query("SELECT * FROM companys WHERE comp_id = :id ;");
         // bind value
@@ -150,15 +156,16 @@ class Company{
         // execute and get row
         $row = $this->db->resultRow();
 
-        if($this->db->rowCount() > 0){
+        if ($this->db->rowCount() > 0) {
             return $row;
-        }else{
+        } else {
             return false;
         }
     }
 
     // update Email adress
-    public function updateEmail($newEmail){
+    public function updateEmail($newEmail)
+    {
 
         $sql = "UPDATE companys SET comp_email = :email WHERE companys.comp_id = :id";
 
@@ -166,15 +173,16 @@ class Company{
         $this->db->bind(":email", $newEmail);
         $this->db->bind(":id", $_SESSION['comp_id']);
 
-        if($this->db->execute()){
+        if ($this->db->execute()) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
     // update password
-    public function updateSecret($newSecret, $id){
+    public function updateSecret($newSecret, $id)
+    {
         $newSecret = password_hash($newSecret, PASSWORD_DEFAULT);
 
         $sql = "UPDATE companys SET comp_secret = :secret WHERE companys.comp_id = :id";
@@ -183,60 +191,64 @@ class Company{
         $this->db->bind(":secret", $newSecret);
         $this->db->bind(":id", $id);
 
-        if($this->db->execute()){
+        if ($this->db->execute()) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public function updateProfile($company){
+    public function updateProfile($company)
+    {
         $sql = "UPDATE companys SET 
                     comp_name = :compname, 
                     comp_city = :city
                     WHERE comp_id = :id";
 
         $this->db->query($sql);
-        $this->db->bind(":compname",$company['comp_name']);
-        $this->db->bind(":city",$company['comp_city']);
-        $this->db->bind(":id",$_SESSION['comp_id']);
+        $this->db->bind(":compname", $company['comp_name']);
+        $this->db->bind(":city", $company['comp_city']);
+        $this->db->bind(":id", $_SESSION['comp_id']);
 
-        if($this->db->execute()){
+        if ($this->db->execute()) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
     // upload image path
-    public function uploadImagePath($path){
+    public function uploadImagePath($path)
+    {
         $sql = "UPDATE companys SET comp_image = :image WHERE comp_id = :id";
         $this->db->query($sql);
         $this->db->bind(':image', $path);
         $this->db->bind(':id', $_SESSION['comp_id']);
 
-        if($this->db->execute()){
+        if ($this->db->execute()) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public function setToken($email, $token){
+    public function setToken($email, $token)
+    {
         $sql = "UPDATE companys SET token = :token WHERE comp_email = :email";
 
         $this->db->query($sql);
         $this->db->bind(":token", $token);
         $this->db->bind(":email", $email);
 
-        if($this->db->execute()){
+        if ($this->db->execute()) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public function getToken($email, $token){
+    public function getToken($email, $token)
+    {
         $sql = "SELECT * FROM companys WHERE comp_email = :email AND token = :token";
 
         $this->db->query($sql);
@@ -245,9 +257,9 @@ class Company{
 
         $row = $this->db->resultRow();
 
-        if($this->db->rowCount() > 0){
+        if ($this->db->rowCount() > 0) {
             return $row;
-        }else{
+        } else {
             return false;
         }
 

@@ -59,6 +59,13 @@
                             <i class="fa fa-cog"></i>
                         </a>
                     </li>
+                <?php elseif(admin_isLoggedIn()):?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo URLROOT . "Admins/dashboard";?>">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo URLROOT . "Admins/logout";?>">logout</a>
+                    </li>
                 <?php else: ?>
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo URLROOT . "users/login";?>">Werkzoekend</a>
