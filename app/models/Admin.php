@@ -1,29 +1,33 @@
 <?php
 
 
-class Admin{
+class Admin
+{
     protected $db;
+
     public function __construct()
     {
         $this->db = new Database();
     }
 
-    public function login($username, $secret){
+    public function login($username, $secret)
+    {
         // search if the user exists
         $row = $this->findAdminByLogin($username);
-        if($row){
+        if ($row) {
             // check if passwords match
-            if(password_verify($secret, $row->secret)){
+            if (password_verify($secret, $row->secret)) {
                 return $row;
-            }else{
+            } else {
                 return false;
             }
-        }else{
+        } else {
             return false;
         }
     }
 
-    public function findAdminByLogin($login){
+    public function findAdminByLogin($login)
+    {
         // prepare statement
         $this->db->query("SELECT * FROM admins WHERE username = :login;");
         // bind value
@@ -31,27 +35,29 @@ class Admin{
         // execute and get row
         $row = $this->db->resultRow();
 
-        if($this->db->rowCount() > 0){
+        if ($this->db->rowCount() > 0) {
             return $row;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public function getAllComps(){
+    public function getAllComps()
+    {
 
         $this->db->query("select * from companys where comp_username IS NOT NULL;");
 
         $set = $this->db->resultSet();
 
-        if($this->db->rowCount() > 0){
+        if ($this->db->rowCount() > 0) {
             return $set;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public function delComp($comp_id){
+    public function delComp($comp_id)
+    {
         $sql = "UPDATE companys SET 
         comp_username = NULL, 
         comp_email = NULL, 
@@ -65,14 +71,15 @@ class Admin{
         $this->db->query($sql);
         $this->db->bind(':id', $comp_id);
 
-        if($this->db->execute()){
+        if ($this->db->execute()) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public function addComp($username, $email, $secret, $name, $city){
+    public function addComp($username, $email, $secret, $name, $city)
+    {
         $sql = "INSERT INTO companys (comp_username, comp_email. comp_secret, comp_name, comp_city)
                 VALUES (:username, :email, :secret, :comp_name, :city)";
 
@@ -82,9 +89,9 @@ class Admin{
         $this->db->bind(':comp_name', $name);
         $this->db->bind(':city', $city);
 
-        if($this->db->execute()){
+        if ($this->db->execute()) {
             return true;
-        }else{
+        } else {
             return false;
         }
 

@@ -51,6 +51,26 @@ class Company{
         }
     }
 
+    public function registerComp($credentials){
+        // prepare statement
+        $this->db->query("INSERT INTO companys (comp_username, comp_email, comp_secret, comp_name, comp_city) 
+                        VALUES (:username, :email, :secret, :comp_name, :city);");
+
+        // bind values
+        $this->db->bind(':username', $credentials['username']);
+        $this->db->bind(':email', $credentials['email']);
+        $this->db->bind(':secret', $credentials['secret']);
+        $this->db->bind(':comp_name', $credentials['comp-name']);
+        $this->db->bind(':city', $credentials['city']);
+
+        // execute statement
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     /**
      * @method FindCompByLogin;
      *
