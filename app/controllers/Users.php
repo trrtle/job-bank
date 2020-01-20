@@ -451,6 +451,7 @@ class Users extends Controller {
                 ];
 
                 $this->view("Users/passwordRecovery", $data);
+                die();
             }
 
             // Generate a token
