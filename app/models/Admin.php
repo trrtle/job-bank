@@ -77,7 +77,7 @@ class Admin
             return false;
         }
     }
-
+    // TODO check usage
     public function addComp($username, $email, $secret, $name, $city)
     {
         $sql = "INSERT INTO companys (comp_username, comp_email. comp_secret, comp_name, comp_city)
@@ -95,6 +95,30 @@ class Admin
             return false;
         }
 
+    }
+
+    public function editComp($data)
+    {
+        $sql = "UPDATE companys SET 
+        comp_username = :username, 
+        comp_email = :email, 
+        comp_name = :comp_name,
+        comp_city = :city
+        WHERE comp_id = :id;";
+
+        $this->db->query($sql);
+
+        $this->db->bind(":username", $data['username']);
+        $this->db->bind(":email", $data['email']);
+        $this->db->bind(":comp_name", $data['comp-name']);
+        $this->db->bind(":city", $data['city']);
+        $this->db->bind(":id", $data['id']);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
