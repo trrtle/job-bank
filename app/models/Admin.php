@@ -102,5 +102,42 @@ class Admin
         }
     }
 
+    public function getAllUsers(){
+        $this->db->query("select * from users where username IS NOT NULL;");
+
+        $set = $this->db->resultSet();
+
+        if ($this->db->rowCount() > 0) {
+            return $set;
+        } else {
+            return false;
+        }
+    }
+
+    public function delUser($id){
+        $sql = "UPDATE users SET 
+        username = NULL, 
+        email = NULL, 
+        secret = NULL, 
+        created = NULL,
+        firstname = NULL,
+        lastname = NULL,
+        city = NULL,
+        image = NULL,
+        age = NULL,
+        gender = NULL,
+        token = NULL    
+        WHERE id = :id";
+
+        $this->db->query($sql);
+        $this->db->bind(':id', $id);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
 }

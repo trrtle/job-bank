@@ -97,12 +97,15 @@ class Admins extends Controller
 
         if (!admin_isLoggedIn()) {
             redirect("Pages/index");
+            die();
         }
 
         $comps = $this->adminModel->getAllComps();
+        $users = $this->adminModel->getAllUsers();
 
         $data = [
-            'comps' => $comps
+            'comps' => $comps,
+            'users'=>$users
         ];
         $this->view('Admins/dashboard', $data);
     }
@@ -127,6 +130,7 @@ class Admins extends Controller
     {
         if (!admin_isLoggedIn()) {
             redirect("Pages/index");
+            die();
         }
         // check for POST
         if ($_SERVER["REQUEST_METHOD"] == 'POST') {
@@ -223,6 +227,7 @@ class Admins extends Controller
     {
         if (!admin_isLoggedIn()) {
             redirect("Pages/index");
+            die();
         }
 
         // check for POST
@@ -296,6 +301,22 @@ class Admins extends Controller
         ];
 
         $this->view("Admins/editComp", $data);
+    }
+
+    public function delUser($id){
+        if (!admin_isLoggedIn()) {
+            redirect("Pages/index");
+            die();
+        }
+
+        if ($this->adminModel->delUser($id)) {
+            $_SESSION['flash'] = new Flash("Sollicitant is verwijderd");
+            redirect("admins/dashboard");
+        } else {
+            $_SESSION['flash'] = new Flash("Kon sollicitant niet verwijderen", "alert alert-danger");
+            redirect("admins/dashboard");
+        }
+
     }
 
     public function createAdminSession($admin)
