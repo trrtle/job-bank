@@ -33,8 +33,9 @@ class Response{
 
     public function getRespById($resp_id){
         $sql = "SELECT R.resp_text AS resp_text, R.resp_date AS resp_date, R.resp_id AS resp_id,
-                O.offer_title AS offer_title, O.offer_desc AS offer_desc, O.offer_date AS offer_date
-                FROM response R JOIN offers O ON R.offer_id=O.offer_id 
+                O.offer_title AS offer_title, O.offer_desc AS offer_desc, O.offer_date AS offer_date, 
+                U.firstname as firstname, U.lastname as lastname, U.username as username
+                FROM response R JOIN offers O ON R.offer_id=O.offer_id JOIN users U on R.user_id =U.id
                 WHERE R.resp_id = :resp_id;";
         $this->db->query($sql);
         $this->db->bind(":resp_id", $resp_id);

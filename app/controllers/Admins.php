@@ -7,12 +7,14 @@ class Admins extends Controller
     private $adminModel;
     private $compModel;
     private $userModel;
+    private $offerModel;
 
     public function __construct()
     {
         $this->adminModel = $this->model("Admin");
         $this->compModel = $this->model("Company");
         $this->userModel = $this->model("User");
+        $this->offerModel = $this->model("Offer");
     }
 
     public function index()
@@ -104,10 +106,12 @@ class Admins extends Controller
 
         $comps = $this->adminModel->getAllComps();
         $users = $this->adminModel->getAllUsers();
+        $offers = $this->offerModel->getAlloffers();
 
         $data = [
             'comps' => $comps,
-            'users'=>$users
+            'users'=>$users,
+            'offers'=>$offers
         ];
         $this->view('Admins/dashboard', $data);
     }

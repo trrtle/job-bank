@@ -89,7 +89,14 @@ class Offer {
     }
 
     public function getAllOffers(){
-        $sql = "SELECT * FROM `offers` WHERE comp_id IS NOT NULL order by offer_date DESC ";
+//        $sql = "SELECT * FROM `offers` WHERE comp_id IS NOT NULL order by offer_date DESC ";
+
+        $sql = "select O.*, count(R.resp_id) as resps
+                from offers O LEFT JOIN response R ON O.offer_id = R.offer_id
+                WHERE O.comp_id IS NOT NULL
+                GROUP BY O.offer_id 
+                ORDER BY O.offer_date DESC";
+
         $this->db->query($sql);
         return $this->db->resultSet();
     }

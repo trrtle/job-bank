@@ -13,6 +13,7 @@ require APPROOT . "/views/inc/header.php";
 /** @var array $data */
 $comps = $data['comps'];
 $users = $data['users'];
+$offers = $data['offers'];
 ?>
 <?php if (!empty($_SESSION['flash'])) {
     $_SESSION['flash']->show();
@@ -110,6 +111,15 @@ $users = $data['users'];
             </div>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                 <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <a href="<?php echo URLROOT . "/Users/register" ?>">
+                                <button type="button" class="btn btn-success">
+                                    <i class="fa fa-plus"></i> Nieuwe sollicitant
+                                </button>
+                            </a>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col">
                             <table class="table table-striped table-hover text-center border shadow-sm">
@@ -166,13 +176,42 @@ $users = $data['users'];
             </div>
             <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                 <div class="card-body">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
-                    wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
-                    eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
-                    assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
-                    sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-                    farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
-                    labore sustainable VHS.
+                    <div class="row">
+                        <div class="col">
+                            <table class="table table-striped table-hover text-center border shadow-sm">
+                                <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Titel</th>
+                                    <th scope="col">Geplaatste datum</th>
+                                    <th scope="col">Reacties</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php foreach($offers as $offer): ?>
+                                    <tr>
+                                        <td>
+                                            <a href="<?php echo  URLROOT . "Offers/show/" . $offer->offer_id;?>">
+                                                <?php echo $offer->offer_title?>
+                                            </a>
+                                        </td>
+                                        </a>
+                                        <td>
+                                            <a href="<?php echo  URLROOT . "Offers/show/" . $offer->offer_id;?>">
+                                                <?php echo $offer->offer_date?>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="<?php echo URLROOT . "Offers/showResponses/ " . $offer->offer_id ?>">
+                                                <?php echo $offer->resps ?>
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                <?php endforeach;?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
