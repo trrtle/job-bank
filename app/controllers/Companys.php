@@ -333,6 +333,7 @@ class Companys extends Controller{
                 ];
 
                 $this->view("Companys/passwordRecovery", $data);
+                die();
             }
 
             // Generate a token
@@ -370,6 +371,7 @@ class Companys extends Controller{
 
         $this->view("Companys/passwordRecovery", $data);
     }
+
 
     public function passwordReset($token = ''){
 
