@@ -39,7 +39,6 @@ class Flash
 
     public function show()
     {
-
         echo '<div class="' . $this->type . '" role="alert">' . $this->message . '</div>';
         unset($_SESSION['flash']);
     }
@@ -47,8 +46,7 @@ class Flash
 }
 
 function isLoggedIn(){
-    if(isset($_SESSION['id']) && isset($_SESSION['email']) ||
-        isset($_SESSION['comp_id']) && isset($_SESSION['comp_email'])){
+    if(comp_isLoggedIn() || user_isLoggedIn() || admin_isLoggedIn() ){
         return true;
     }else{
         return false;

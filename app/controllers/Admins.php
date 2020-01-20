@@ -88,14 +88,26 @@ class Admins extends Controller{
             redirect("Pages/index");
         }
 
-//        $user = $this->userModel->findUserById($_SESSION['id']);
-//        $latestOffers = $this->offerModel->getLatestOffers(3);
-//        $resps = $this->respModel->getAllRespsByUserId($_SESSION['id']);
+        $comps = $this->adminModel->getAllComps();
 
         $data = [
-
+            'comps'=>$comps
         ];
         $this->view('Admins/dashboard', $data);
+    }
+
+    public function delComp($id){
+        if(!admin_isLoggedIn()){
+            redirect("Pages/index");
+        }
+
+        if($this->adminModel->delComp($id)){
+            $_SESSION['flash'] = new Flash("Werkgever is verwijderd");
+            redirect("admins/dashboard");
+        }else{
+            $_SESSION['flash'] = new Flash("Kon werkgever niet verwijderen", "alert alert-danger");
+            redirect("admins/dashboard");
+        }
     }
 
     public function createAdminSession($admin){
