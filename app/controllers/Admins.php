@@ -6,11 +6,13 @@ class Admins extends Controller
 
     private $adminModel;
     private $compModel;
+    private $userModel;
 
     public function __construct()
     {
         $this->adminModel = $this->model("Admin");
         $this->compModel = $this->model("Company");
+        $this->userModel = $this->model("User");
     }
 
     public function index()
@@ -317,6 +319,83 @@ class Admins extends Controller
             redirect("admins/dashboard");
         }
 
+    }
+
+    public function editUser($id)
+    {
+        if (!admin_isLoggedIn()) {
+            redirect("Pages/index");
+            die();
+        }
+
+        // check for POST
+        if ($_SERVER["REQUEST_METHOD"] == 'POST') {
+
+            // Sanitize POST data. 1. call htmlspecialchars() on entire array. 2. set every value as a string
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            // process form
+            $data = [
+                'username' => trim($_POST['username']),
+                'email' => trim($_POST['email']),
+                'id'=> $id,
+                'username_err' => '',
+                'email_err' => '',
+            ];
+
+            // validate user input
+            if (empty($data["username"])) {
+                $data["username_err"] = "Gebruikersnaam mag niet leeg zijn.";
+            }
+            // check if username belongs to another account
+            $user = $this->userModel->findUserByUsername($data['username']);
+            if ($user && $user->id != $id) {
+                $data["username_err"] = "Gebruikersnaam is al ingebruik";
+            }
+
+            if (empty($data["email"])) {
+                $data["email_err"] = "Please fill in the company email address";
+            }
+            // check if email belongs to another account.
+            $user = $this->userModel->findUserByEmail($data['email']);
+            if ($user && $user->comp_id != $id) {
+                $data["email_err"] = "Email already exists";
+            }
+
+            // check if errors are empty
+            if (empty($data['username_err']) && empty($data['email_err'])) {
+
+                // Register user
+                if ($this->adminModel->editUser($data)) {
+
+                    $_SESSION["flash"] = new Flash("Gegevens zijn gewijzigd.");
+                    redirect("Admins/Dashboard");
+
+
+                } else {
+                    die("Something went wrong");
+                }
+
+            } else {
+                // redirect with errors
+                if(!empty($data['username_err'])){
+                    $_SESSION["flash"] = new Flash("Gebruikersnaam mag niet leeg zijn of is al ingebruik",
+                        "alert alert-danger");
+                }elseif (!empty($data['email_err'])){
+                    $_SESSION["flash"] = new Flash("Email mag niet leeg zijn of is al ingebruik",
+                        "alert alert-danger");
+                }
+                redirect("Admins/Dashboard");
+            }
+        }
+        $user = $this->userModel->findUserById($id);
+
+        $data = [
+            'user'=>$user
+        ];
+
+        $this->view("Admins/editUser", $data);
     }
 
     public function createAdminSession($admin)
