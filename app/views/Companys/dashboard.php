@@ -19,9 +19,8 @@ $offers = $data['offers'];
         <h1>Welkom <?php echo ucwords($_SESSION['comp_username']) ?></h1>
     </div>
 </div>
-
 <div class="row mb-3">
-    <div class="col">
+    <div class="col-3">
         <a href="<?php echo URLROOT . "Offers/add"; ?>">
             <button type="button" class="btn btn-success shadow-sm">
                 <i class="fa fa-pencil"></i> Nieuwe vacature
@@ -83,6 +82,7 @@ $offers = $data['offers'];
         <hr class="mt-5">
     </div>
 </div>
+
 
 
 <?php require APPROOT . "/views/inc/footer.php" ?>

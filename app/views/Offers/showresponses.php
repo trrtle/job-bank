@@ -15,6 +15,7 @@ require APPROOT . "/views/inc/header.php";
             <tr>
                 <th scope="col">Sollicitant</th>
                 <th scope="col">Datum</th>
+                <th scope="col">Comissie</th>
             </tr>
             </thead>
             <tbody>
@@ -25,10 +26,14 @@ require APPROOT . "/views/inc/header.php";
                             <?php echo (!empty($resp->firstname) ? $resp->firstname . ' ' . $resp->lastname : $resp->username )?>
                         </a>
                     </td>
-                    </a>
                     <td>
                         <a href="<?php echo  URLROOT . "Responses/show/" . $resp->resp_id;?>">
                             <?php echo $resp->resp_date?>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="<?php echo  URLROOT . "Responses/show/" . $resp->resp_id;?>">
+                            <?php echo YEAR_SALARY * 0.05?>
                         </a>
                     </td>
                 </tr>

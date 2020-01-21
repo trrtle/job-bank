@@ -8,12 +8,13 @@ class Response{
     }
 
     public function addResponse($offer_id, $resp_text, $user_id){
-        $sql = "INSERT INTO response (offer_id, resp_text, user_id) 
-                VALUES (:offer_id, :resp_text, :user_id);";
+        $sql = "INSERT INTO response (offer_id, resp_text, user_id, commision) 
+                VALUES (:offer_id, :resp_text, :user_id, :commision);";
         $this->db->query($sql);
         $this->db->bind(":offer_id", $offer_id);
         $this->db->bind(":resp_text", $resp_text);
         $this->db->bind(":user_id", $user_id);
+        $this->db->bind(":commision", YEAR_SALARY * 0.05);
         if($this->db->execute()){
             return true;
         }else{
@@ -51,13 +52,20 @@ class Response{
         return $this->db->resultSet();
     }
 
+    public function checkRespsByUserIdOnOffer($user_id, $offer_id)
+    {
+        $sql = "SELECT * FROM `response` WHERE user_id = :user_id AND offer_id = :offer_id ";
 
-//    public function countRespOnOffer($offer_id){
-//        $sql = "SELECT * FROM response WHERE offer_id = :offer_id";
-//        $this->db->query($sql);
-//        $this->db->bind(":offer_id", $offer_id);
-//        return $this->db->rowCount();
-//    }
+        $this->db->query($sql);
+        $this->db->bind(':user_id', $user_id);
+        $this->db->bind(':offer_id', $offer_id);
+        $row =  $this->db->resultSet();
 
+        if(!empty($row)){
+            return $row;
+        }else{
+            return false;
+        }
+    }
 
 }

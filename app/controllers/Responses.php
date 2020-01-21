@@ -37,6 +37,14 @@ class Responses extends Controller{
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
+            // check if user already responded
+            $respExists = $this->respModel->checkRespsByUserIdOnOffer($_SESSION['id'], $offer_id);
+            if(!empty($respExists)){
+                redirect("offers/show/" . $offer_id);
+                $_SESSION['flash'] = new Flash('Je kunt maar 1 keer reageren op een vacature.', "alert alert-danger");
+                die();
+            }
+
             if(empty($_POST["resp_text"])){
 
                 $data = [

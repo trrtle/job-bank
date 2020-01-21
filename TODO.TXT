@@ -1,3 +1,9 @@
+zet het jaarsalaris.
+tel per vacature het aantal sollicitanten
+bereken per vacature 5% commissie.
+laat dit zien aan het bedrijf
+laat alle vacturen zien aan de admin
+
 
 verwijder tags
 wanneer je een bedrijf verwijdert. verwijder dan ook alle vacatures en de reacties daar op.
