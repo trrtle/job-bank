@@ -5,11 +5,13 @@ class Responses extends Controller{
     private $db;
     private $offerModel;
     private $respModel;
+    private $invoiceModel;
 
     public function __construct(){
         $this->db = new Database();
         $this->offerModel = $this->model("Offer");
         $this->respModel = $this->model("Response");
+        $this->invoiceModel = $this->model("Invoice");
 
         if(!isLoggedIn()){
             redirect("Users/login");
@@ -60,6 +62,11 @@ class Responses extends Controller{
                 ];
 
                 if($this->respModel->addResponse($offer_id, $_POST['resp_text'], $_SESSION['id'])){
+
+                   // add an invoice for the response
+                    $resp = $this->respModel->checkRespsByUserIdOnOffer($_SESSION['id'], $offer_id);
+                    $this->invoiceModel->insertInvoice($resp->resp_id, $offer_id, $_SESSION['id']);
+
                     redirect("offers/show/" . $offer_id);
                     $_SESSION['flash'] = new Flash('Reactie is verstuurd!');
 

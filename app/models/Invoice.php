@@ -1,7 +1,7 @@
 <?php
 
 
-class invoice
+class Invoice
 {
     private $db;
     private $offerModel;

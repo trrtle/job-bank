@@ -1,5 +1,4 @@
 <?php
-require_once "invoice.php";
 class Response{
     private $db;
 
@@ -59,7 +58,7 @@ class Response{
         $this->db->query($sql);
         $this->db->bind(':user_id', $user_id);
         $this->db->bind(':offer_id', $offer_id);
-        $row =  $this->db->resultSet();
+        $row =  $this->db->resultRow();
 
         if(!empty($row)){
             return $row;
