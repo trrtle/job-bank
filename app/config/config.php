@@ -32,8 +32,10 @@ define('MAIL_PORT', '465');
 define('MAIL_USERNAME', 'Turtledev94@gmail.com');
 define('MAIL_SECRET', 'Asdf1234!');
 
-// DEFINE SALARY
+// DEFINE SALARY & COMMISSION
 define('YEAR_SALARY', 24000);
+define('COMMISSION', YEAR_SALARY * 0.05);
+
 
 
 

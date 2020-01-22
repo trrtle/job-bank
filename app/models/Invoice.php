@@ -21,11 +21,13 @@ class Invoice
     }
 
     public function insertInvoice($resp_id, $offer_id, $user_id){
-        $sql = "INSERT INTO invoices (resp_id, offer_id, user_id) VALUES (:resp_id, :offer_id, :user_id);";
+        $sql = "INSERT INTO invoices (resp_id, offer_id, user_id, commission) 
+                VALUES (:resp_id, :offer_id, :user_id, :commission);";
         $this->db->query($sql);
         $this->db->bind(":resp_id", $resp_id);
         $this->db->bind(":offer_id", $offer_id);
         $this->db->bind(":user_id", $user_id);
+        $this->db->bind(":commission", COMMISSION);
 
         if($this->db->execute()){
             return true;
