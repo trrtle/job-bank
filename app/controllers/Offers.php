@@ -5,6 +5,7 @@ class Offers extends Controller{
     private $offerModel;
     private $compModel;
     private $respModel;
+    private $invoiceModel;
 
     public function __construct()
     {
@@ -13,6 +14,7 @@ class Offers extends Controller{
         $this->offerModel = $this->model("Offer");
         $this->compModel = $this->model("Company");
         $this->respModel = $this->model("Response");
+        $this->invoiceModel = $this->model('Invoice');
     }
 
     //default
@@ -254,10 +256,12 @@ class Offers extends Controller{
 
         $resps = $this->respModel->getRespsByOffer($offer_id);
         $offer = $this->offerModel->getOfferById($offer_id);
+        $commission = $this->invoiceModel->countCommissionByOffer($offer_id);
 
         $data = [
             'resps'=>$resps,
-            'offer'=>$offer
+            'offer'=>$offer,
+            'comm'=>$commission
         ];
 
         $this->view("Offers/showresponses", $data);

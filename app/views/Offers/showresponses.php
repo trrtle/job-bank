@@ -33,11 +33,16 @@ require APPROOT . "/views/inc/header.php";
                     </td>
                     <td>
                         <a href="<?php echo  URLROOT . "Responses/show/" . $resp->resp_id;?>">
-                            € <?php echo YEAR_SALARY * 0.05; ?>
+                            € <?php echo COMMISSION ?>
                         </a>
                     </td>
                 </tr>
             <?php endforeach;?>
+            <tr>
+                <td></td>
+                <td>Totaal: </td>
+                <td><?php echo $data['comm']->count; ?></td>
+            </tr>
             </tbody>
         </table>
         <hr class="mt-5">

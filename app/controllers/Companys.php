@@ -28,8 +28,9 @@ class Companys extends Controller{
 
         $offers = $this->offerModel->getAllOffersByCompId($_SESSION['comp_id']);
 
+
         $data = [
-            'offers'=>$offers,
+            'offers'=>$offers
         ];
 
         $this->view('Companys/dashboard', $data);

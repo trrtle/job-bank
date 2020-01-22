@@ -52,4 +52,20 @@ class Invoice
         }
     }
 
+    // TODO
+    public function countCommissionByOffer($offer_id){
+        $sql = "SELECT count(*) as count FROM `invoices` WHERE offer_id = :offer_id";
+
+        $this->db->query($sql);
+        $this->db->bind(":offer_id", $offer_id);
+
+        $row = $this->db->resultSet();
+        if(!empty($row)){
+            return $row;
+        }else{
+            return false;
+        }
+
+    }
+
 }
