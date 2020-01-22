@@ -33,7 +33,7 @@ require APPROOT . "/views/inc/header.php";
                     </td>
                     <td>
                         <a href="<?php echo  URLROOT . "Responses/show/" . $resp->resp_id;?>">
-                            <?php echo YEAR_SALARY * 0.05?>
+                            € <?php echo YEAR_SALARY * 0.05; ?>
                         </a>
                     </td>
                 </tr>

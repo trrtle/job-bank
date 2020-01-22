@@ -237,6 +237,13 @@ class Offers extends Controller{
         }
 
         if($this->offerModel->deleteOffer($offer_id)){
+            // remove responses
+            $resps = $this->respModel->getRespsByOffer($offer_id);
+
+            foreach($resps as $resp){
+                $this->respModel->deleteResp($resp->resp_id);
+            }
+
             redirect('Companys/dashboard');
             $_SESSION['flash'] = new Flash("Vacature is verwijderd");
         }

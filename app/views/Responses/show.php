@@ -15,7 +15,7 @@ require APPROOT . "/views/inc/header.php";
 </div>
 <hr>
 <small><i>Geplaatst door: <a href=" <?php echo URLROOT . "Users/profile/" . $data['resp']->username; ?>">
-            <?php echo $data['resp']->firstname . " " . $data['resp']->lastname ?>
+            <?php echo (!empty($data['resp']->firstname) ? $data['resp']->firstname . " " . $data['resp']->lastname : $data['resp']->username); ?>
         </a></i></small>
 
 <?php require APPROOT . "/views/inc/footer.php"?>

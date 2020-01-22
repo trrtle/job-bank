@@ -1,5 +1,5 @@
 <?php
-
+require_once "invoice.php";
 class Response{
     private $db;
 
@@ -63,6 +63,25 @@ class Response{
 
         if(!empty($row)){
             return $row;
+        }else{
+            return false;
+        }
+    }
+
+    public function deleteResp($resp_id){
+        $sql = "UPDATE response SET 
+        offer_id = NULL, 
+        resp_text = NULL, 
+        user_id = NULL, 
+        resp_date = NULL, 
+        commision = NULL 
+        WHERE resp_id = :id";
+
+        $this->db->query($sql);
+        $this->db->bind(':id', $resp_id);
+
+        if($this->db->execute()){
+            return true;
         }else{
             return false;
         }

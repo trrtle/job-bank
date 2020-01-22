@@ -18,6 +18,7 @@ class invoices extends Controller
 
     }
 
+    // TODO
     public function createInvoice($comp_id){
 
         // krijg alle offer_id's van company
