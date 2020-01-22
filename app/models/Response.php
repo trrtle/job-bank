@@ -7,13 +7,12 @@ class Response{
     }
 
     public function addResponse($offer_id, $resp_text, $user_id){
-        $sql = "INSERT INTO response (offer_id, resp_text, user_id, commision) 
-                VALUES (:offer_id, :resp_text, :user_id, :commision);";
+        $sql = "INSERT INTO response (offer_id, resp_text, user_id) 
+                VALUES (:offer_id, :resp_text, :user_id);";
         $this->db->query($sql);
         $this->db->bind(":offer_id", $offer_id);
         $this->db->bind(":resp_text", $resp_text);
         $this->db->bind(":user_id", $user_id);
-        $this->db->bind(":commision", YEAR_SALARY * 0.05);
         if($this->db->execute()){
             return true;
         }else{
