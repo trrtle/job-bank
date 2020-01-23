@@ -33,7 +33,7 @@ require APPROOT . "/views/inc/header.php";
                     </td>
                     <td>
                         <a href="<?php echo  URLROOT . "Responses/show/" . $resp->resp_id;?>">
-                            € <?php echo COMMISSION ?>
+                             <?php echo ( $data['commCount'] == 0 ? "Betaald" : "€ " . COMMISSION) ?>
                         </a>
                     </td>
                 </tr>
