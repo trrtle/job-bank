@@ -406,6 +406,24 @@ class Admins extends Controller
         $this->view("Admins/editUser", $data);
     }
 
+
+    public function delInvoice($offer_id){
+
+        if (!admin_isLoggedIn()) {
+            redirect("Pages/index");
+            die();
+        }
+
+        if ($this->invoiceModel->deleteInvoice($offer_id)) {
+            $_SESSION['flash'] = new Flash("Factuur is verwijderd");
+            redirect("admins/dashboard");
+        } else {
+            $_SESSION['flash'] = new Flash("Kon Factuur niet verwijderen", "alert alert-danger");
+            redirect("admins/dashboard");
+        }
+
+    }
+
     public function createAdminSession($admin)
     {
         $_SESSION['admin_id'] = $admin->id;

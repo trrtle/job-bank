@@ -81,6 +81,15 @@ class Invoice
 
     public function deleteInvoice($offer_id){
         $sql = "UPDATE invoices SET payed = 1 WHERE offer_id = :id";
+
+        $this->db->query($sql);
+        $this->db->bind(":id", $offer_id);
+
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }

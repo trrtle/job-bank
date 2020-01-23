@@ -234,6 +234,7 @@ $comms = $data['comms'];
                                 <th scope="col">Bedrijf</th>
                                 <th scope="col">Vacature</th>
                                 <th scope="col">Commissie</th>
+                                <th scope="col">Verwijderen</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -253,6 +254,12 @@ $comms = $data['comms'];
                                     <td>
                                         <a href="<?php echo URLROOT . "Offers/showResponses/ " . $comm->offer_id ?>">
                                             <?php echo $comm->total_comm ?>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="<?php echo URLROOT . "Admins/delInvoice/ " . $comm->offer_id ?>">
+                                            <button type="button" class="btn btn-sm btn-danger"><i
+                                                        class="fa fa-times"></i></i></button>
                                         </a>
                                     </td>
                                 </tr>
