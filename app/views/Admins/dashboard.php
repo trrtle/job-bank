@@ -102,6 +102,7 @@ $offers = $data['offers'];
                 </div>
             </div>
         </div>
+    </div>
         <div class="card">
             <div class="card-header btn btn-light" id="headingTwo" type="button" data-toggle="collapse"
                  data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
@@ -211,6 +212,53 @@ $offers = $data['offers'];
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="card">
+        <div class="card-header btn btn-light" id="headingFour" type="button" data-toggle="collapse"
+             data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+            <h2 class="mb-0">
+                <h4 class="pull-left">Facturen</h4>
+            </h2>
+        </div>
+        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <table class="table table-striped table-hover text-center border shadow-sm">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Bedrijf</th>
+                                <th scope="col">Vacature</th>
+                                <th scope="col">Commissie</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach($offers as $offer): ?>
+                                <tr>
+                                    <td>
+                                        <a href="<?php echo  URLROOT . "Offers/show/" . $offer->offer_id;?>">
+                                            <?php echo $offer->offer_title?>
+                                        </a>
+                                    </td>
+                                    </a>
+                                    <td>
+                                        <a href="<?php echo  URLROOT . "Offers/show/" . $offer->offer_id;?>">
+                                            <?php echo $offer->offer_date?>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="<?php echo URLROOT . "Offers/showResponses/ " . $offer->offer_id ?>">
+                                            <?php echo $offer->resps ?>
+                                        </a>
+                                    </td>
+                                </tr>
+
+                            <?php endforeach;?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

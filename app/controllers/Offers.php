@@ -255,7 +255,7 @@ class Offers extends Controller{
     public function showResponses($offer_id = ''){
 
         // redirect if user is not logged in
-        if(!comp_isLoggedIn()){
+        if(!comp_isLoggedIn() && !admin_isLoggedIn()){
             redirect("Pages/index");
         }
 
