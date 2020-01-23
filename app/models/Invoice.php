@@ -63,14 +63,13 @@ class Invoice
 
     }
 
-    public function totalCommByOffer($offer_id){
-        $sql = "SELECT offer_title, comp_username, commission * count(commission) as total_comm FROM invoices I 
+    public function totalCommByOffer(){
+        $sql = "SELECT O.offer_id AS offer_id, offer_title, comp_username, commission * count(commission) as total_comm FROM invoices I 
                     JOIN offers O ON I.offer_id=O.offer_id 
                     JOIN companys C ON O.comp_id=C.comp_id 
                     GROUP BY O.offer_id";
 
         $this->db->query($sql);
-        $this->db->bind(":offer_id", $offer_id);
 
         $result = $this->db->resultSet();
         if(!empty($result)){

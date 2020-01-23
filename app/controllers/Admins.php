@@ -8,6 +8,7 @@ class Admins extends Controller
     private $compModel;
     private $userModel;
     private $offerModel;
+    private $invoiceModel;
 
     public function __construct()
     {
@@ -15,6 +16,7 @@ class Admins extends Controller
         $this->compModel = $this->model("Company");
         $this->userModel = $this->model("User");
         $this->offerModel = $this->model("Offer");
+        $this->invoiceModel = $this->model('Invoice');
     }
 
     public function index()
@@ -107,11 +109,13 @@ class Admins extends Controller
         $comps = $this->adminModel->getAllComps();
         $users = $this->adminModel->getAllUsers();
         $offers = $this->offerModel->getAlloffers();
+        $comms = $this->invoiceModel->totalCommByOffer();
 
         $data = [
             'comps' => $comps,
             'users'=>$users,
-            'offers'=>$offers
+            'offers'=>$offers,
+            'comms'=>$comms
         ];
         $this->view('Admins/dashboard', $data);
     }

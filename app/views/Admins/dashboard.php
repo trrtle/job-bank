@@ -14,6 +14,7 @@ require APPROOT . "/views/inc/header.php";
 $comps = $data['comps'];
 $users = $data['users'];
 $offers = $data['offers'];
+$comms = $data['comms'];
 ?>
 <?php if (!empty($_SESSION['flash'])) {
     $_SESSION['flash']->show();
@@ -236,22 +237,22 @@ $offers = $data['offers'];
                             </tr>
                             </thead>
                             <tbody>
-                            <?php foreach($offers as $offer): ?>
+                            <?php foreach($comms as $comm): ?>
                                 <tr>
                                     <td>
-                                        <a href="<?php echo  URLROOT . "Offers/show/" . $offer->offer_id;?>">
-                                            <?php echo $offer->offer_title?>
+                                        <a href="<?php echo  URLROOT . "Offers/show/" . $comm->offer_id;?>">
+                                            <?php echo $comm->comp_username?>
                                         </a>
                                     </td>
                                     </a>
                                     <td>
-                                        <a href="<?php echo  URLROOT . "Offers/show/" . $offer->offer_id;?>">
-                                            <?php echo $offer->offer_date?>
+                                        <a href="<?php echo  URLROOT . "Offers/show/" . $comm->offer_id;?>">
+                                            <?php echo $comm->offer_title?>
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="<?php echo URLROOT . "Offers/showResponses/ " . $offer->offer_id ?>">
-                                            <?php echo $offer->resps ?>
+                                        <a href="<?php echo URLROOT . "Offers/showResponses/ " . $comm->offer_id ?>">
+                                            <?php echo $comm->total_comm ?>
                                         </a>
                                     </td>
                                 </tr>
