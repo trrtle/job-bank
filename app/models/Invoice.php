@@ -37,7 +37,7 @@ class Invoice
     }
 
     public function getInvoice($resp_id, $offer_id, $user_id){
-        $sql = "SELECT * FROM `invoices` WHERE resp_id = :resp_id AND offer_id = :offer_id AND user_id = :user_id ";
+        $sql = "SELECT * FROM `invoices` WHERE resp_id = :resp_id AND offer_id = :offer_id AND user_id = :user_id AND payed = 0";
 
         $this->db->query($sql);
         $this->db->bind(":resp_id", $resp_id);
@@ -54,7 +54,7 @@ class Invoice
 
 
     public function countCommissionByOffer($offer_id){
-        $sql = "SELECT count(*) AS count FROM invoices WHERE offer_id = :offer_id";
+        $sql = "SELECT count(*) AS count FROM invoices WHERE offer_id = :offer_id AND payed = 0";
 
         $this->db->query($sql);
         $this->db->bind(":offer_id", $offer_id);
@@ -66,8 +66,8 @@ class Invoice
     public function totalCommByOffer(){
         $sql = "SELECT O.offer_id AS offer_id, offer_title, comp_username, commission * count(commission) as total_comm FROM invoices I 
                     JOIN offers O ON I.offer_id=O.offer_id 
-                    JOIN companys C ON O.comp_id=C.comp_id 
-                    GROUP BY O.offer_id";
+                    JOIN companys C ON O.comp_id=C.comp_id WHERE I.payed = 0
+                    GROUP BY O.offer_id; ";
 
         $this->db->query($sql);
 
@@ -79,5 +79,8 @@ class Invoice
         }
     }
 
+    public function deleteInvoice($offer_id){
+        $sql = "UPDATE invoices SET payed = 1 WHERE offer_id = :id";
+    }
 
 }
