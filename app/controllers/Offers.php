@@ -254,14 +254,25 @@ class Offers extends Controller{
 
     public function showResponses($offer_id = ''){
 
+        // redirect if user is not logged in
+        if(!comp_isLoggedIn()){
+            redirect("Pages/index");
+        }
+
+        if(empty($offer_id)){
+            redirect("Pages/index");
+        }
+
+
         $resps = $this->respModel->getRespsByOffer($offer_id);
         $offer = $this->offerModel->getOfferById($offer_id);
-        $commission = $this->invoiceModel->countCommissionByOffer($offer_id);
+        $commCount = $this->invoiceModel->countCommissionByOffer($offer_id);
+        settype($commCount, "integer");
 
         $data = [
             'resps'=>$resps,
             'offer'=>$offer,
-            'comm'=>$commission
+            'commCount'=>$commCount
         ];
 
         $this->view("Offers/showresponses", $data);

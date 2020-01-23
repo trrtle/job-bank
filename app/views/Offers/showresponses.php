@@ -40,8 +40,8 @@ require APPROOT . "/views/inc/header.php";
             <?php endforeach;?>
             <tr>
                 <td></td>
-                <td>Totaal: </td>
-                <td><?php echo $data['comm']->count; ?></td>
+                <td><h4>Totaal: </h4></td>
+                <td><h4>€ <?php echo $data['commCount'] * COMMISSION; ?></h4></td>
             </tr>
             </tbody>
         </table>
