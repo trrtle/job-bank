@@ -48,9 +48,6 @@ require APPROOT . "/views/inc/header.php"
                     <div class="col">
                         <button type="submit" class="btn btn-success btn-block">Login</button>
                     </div>
-                    <div class="col">
-                        <a href="#"><button type="button" class="btn btn-light">Als bedrijf kun je hier een account aanvragen</button></a>
-                    </div>
                 </div>
             </form>
         </div>
